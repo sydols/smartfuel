@@ -82,3 +82,41 @@ For answers to common questions about this code of conduct, see the FAQ at [http
 [Mozilla CoC]: https://github.com/mozilla/diversity
 [FAQ]: https://www.contributor-covenant.org/faq
 [translations]: https://www.contributor-covenant.org/translations
+
+You must have in the Code Of Conduct the 305Soft policy of no distracted use use technology (e.g. phones away) during all team meetings.
+
+Decisions (How will they be made? Majority, consensus, other?). 
+
+A: Majority. 
+
+Attendance (What are your expectations for the frequency and type of attendance?; What are legitimate reasons for missing? What do missing members have to do to make up for missed meetings)
+
+A: We are expected to meet for project meetings at times which the entire group agrees on. This includes meeting via Zoom or in person outside of class time. Legitimate reasons for missing a meeting include illness, transportation issues, as well as family concerns. 
+
+Assignments (How will assignments be made? How will the group deal with members who do not complete (or poorly complete assignments?)
+
+A: Assignments will be split up amongst group members based on the SCRUM masters choice. Group members who poorly complete an assignment will be spoken to and will be offered help. Group members who do not complete a assignment will have a point deducted from their overall participation rating after the project is complete. 
+
+Participation (How will you communicate and share information; How will you ensure full participation of everyone? How will you honor member strengths and interests)?
+
+A: Full participation of everyone will come from weekly meeting to guarantee each memebr is aware of what is being asked of them. Members strengths and interests will be honored through respectful group discussion. 
+
+Meeting Times and Locations/Mediums (How will you decide on locations and times that suit all members)?
+
+A: Meeting times will be determined through agreement amonst all group members on times throughout the week that best suit everyone. Meetings will occur on campus or via Zoom if needed.  
+
+Agenda and Minutes /Notes (Who will take them how will they be shared?) 
+
+A: Each member will have a chance to take meeting notes for each discussion. This role will switch amongst members as we will keep track of who took notes in past meetings and who will take notes in upcoming meetings. 
+
+Promptness (What do you expect and how will you handle lateness?)
+
+A: Lateness over 15 minutes includes point deduction from overall participation rating. 
+
+Conversational Courtesies (How will the team encourage and reinforce active listening, sharing of the airtime, tangents, respectful dialogue, etc )
+
+A: There will always be resepctful discussion that occurs in meetings. 
+
+Enforcement/ Feedback (How will the team enforce its own rules? How do individuals prefer to give and receive feedback?)
+
+A: The team will enforce rules by making a group member read the code of conduct over if the team member becomes neglectful of rules within this code. 
