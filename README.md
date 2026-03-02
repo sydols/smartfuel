@@ -1,1 +1,3 @@
 # smartfuel
+
+## Contributor Covenant
