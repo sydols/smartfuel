@@ -2,28 +2,28 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'home_page_model.dart';
-export 'home_page_model.dart';
+import 'nearby_map_search_model.dart';
+export 'nearby_map_search_model.dart';
 
-class HomePageWidget extends StatefulWidget {
-  const HomePageWidget({super.key});
+class NearbyMapSearchWidget extends StatefulWidget {
+  const NearbyMapSearchWidget({super.key});
 
-  static String routeName = 'HomePage';
-  static String routePath = '/homePage';
+  static String routeName = 'NearbyMapSearch';
+  static String routePath = '/nearbyMapSearch';
 
   @override
-  State<HomePageWidget> createState() => _HomePageWidgetState();
+  State<NearbyMapSearchWidget> createState() => _NearbyMapSearchWidgetState();
 }
 
-class _HomePageWidgetState extends State<HomePageWidget> {
-  late HomePageModel _model;
+class _NearbyMapSearchWidgetState extends State<NearbyMapSearchWidget> {
+  late NearbyMapSearchModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => HomePageModel());
+    _model = createModel(context, () => NearbyMapSearchModel());
   }
 
   @override

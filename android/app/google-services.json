@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "969437710080",
+    "project_id": "smart-fuel-zxvlat",
+    "storage_bucket": "smart-fuel-zxvlat.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:969437710080:android:9d61d28477a1929ef195e5",
+        "android_client_info": {
+          "package_name": "com.mycompany.smartfuel"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDOqjyvLSxTyuJRWuXIulc8pP2WHg2JexU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
