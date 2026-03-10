@@ -1,2 +1,1 @@
-- Metric 1 - how to collect
-- Metric 2 - how to collect
+DAU - Use Firebase Authentication to automatically record when a user opens the SmartFuel app.
