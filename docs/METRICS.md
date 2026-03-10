@@ -1,2 +1,1 @@
-- Metric 1 - how to collect
-- Metric 2 - how to collect
+- Net Promoter Score - Implemented by embedding a survey from the FlutterFlow marketplace in SmartFuel and prompting the user to answer after three logins via a custom function. Data will be embeded in the user database for that user. Results will be analyzed to gauge overall user satisfaction.
