@@ -25,3 +25,4 @@ Day 7 retention
 Day 30 retention
 
 
+- DAU - Measures the number of unique users who open and use the SmartFuel app each day. This metric helps determine how frequently users are engaging with the application. To access, open Firebase Console, navigate to Analytics → Dashboard, then view Daily Active Users (DAU) under the Engagement metrics.
