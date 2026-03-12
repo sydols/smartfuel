@@ -1,15 +1,19 @@
-A/B Test Name:  Make a meaningful name for the test. For example  "Signup/Sign In 1 screen or 2 screens", could be a title for an A/B test to determine if users prefer having account creation and login on a single screen, or two screens.
+A/B Test Name: Single-Tap Google Sign-Up vs. Standard Email Registration
 
-User Story Number: For instance, the "Signup/Sign In 1 screen or 2 screens" A/B test would be a task under US1 (Account Creation). 
+User Story Number: US1 (Account Creation)
 
-Metrics:  Your team's HEART metrics that this A/B test measures.
+Metrics: Adoption (registration rate) and Engagement (active use of app after account creation)
 
 Hypothesis: State your hypothesis for this A/B test
 
-What problem are we trying to solve? Its impact? (e.g. how big this problem is to our customers?) In formulating the hypothesis, first you need to define the problem you want to solve. For example, you are an SaaS that offers free trial and you want to improve Adoption. But that problem might be too broad to form an A/B test as you can simply test one variable in an A/B test to be effective (otherwise you won’t know which variable is causing the change). So to narrow down the problem you want to solve, you need to find out the bottle-neck in the conversion funnel – where do people drop off the most? Are there any key information or call-to-action buttons that you expect people to read/click but they didn’t? 
+The bottleneck in the conversion funnel is at the account creation screen. Typing out a valid email address, conceptualizing a strong password, and confirming that password takes time and mental effort, especially for commuters who are likely on their phones and in a hurry. This friction leads to users abandoning the app before they ever reach the main dashboard.
 
-After narrowing down the problem you want to solve, you then need to make a hypothesis as to what causes those bottlenecks and what you can do to improve. For example, you noticed most of the visitors will visit your “Features” page but very few of them will actually scroll past even half of the page so many features that you think are important are not actually viewed by the visitors. To improve this, one hypothesis might be using tab or toggle list design to make your page shorter and visitors can select to dig deeper into content that they are interested in by expanding the content. Remember when formulating your hypothesis, change only one variable so that you will know it’s really that variable that is causing the change in conversion..
+If we introduce a "Continue with Google" button alongside the standard email/password fields, then the overall registration rate  will increase. This is because utilizing an existing Google session reduces the time and physical taps required to sign up from over a dozen down to just one or two, allowing users to instantly access the app's core fuel-saving features.
 
-Experiment - Detail out the experiment setup that you will use to test your hypothesis using Firebase capabilities. Describe the audiences – will all users be able to view the experiment? Or you will only allocate x% of your user base to the experiment? Lay out the details with the rationale behind this decision. Describe the tracking using Firebase Analytics. With your HEART metrics, what tracking needs to be set up? 
+Experiment - We will execute this using Firebase A/B Testing linked with Remote Config. We will target 50% of our new, unauthenticated users for this experiment. A 50/50 split is ideal here because adding a new authentication method is a significant UI change, and we want to reach statistical significance quickly.
 
-Variations - In this section, describe what variations you would like to test. Layout the design work related and add diagrams, mockups and designs related to the confirmed variation that you’d like to test.
+Using Firebase Analytics, we will track the events sign_up_screen_viewed and sign_up_success. Crucially, to test our hypothesis about speed, we will log a custom timestamp parameter when the screen opens and another when the registration completes to calculate the average time spent on the screen. We will also log the sign_up_method parameter (email vs. google) to see which one the test group prefers.
+
+Variations - Control (Variation A): The sign-up screen displays the standard text fields for "Email," "Password," and "Confirm Password," followed by a primary "Sign Up" button.
+
+Test (Variation B): The sign-up screen includes the native FlutterFlow "Continue with Google" authentication button prominently placed at the top of the form, separated by an "OR" divider from the standard email/password input fields below it.
