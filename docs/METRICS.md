@@ -32,5 +32,8 @@ Day 30 retention
 
 Measures the number of unique users who open and use the SmartFuel app each day. This metric helps determine how frequently users are engaging with the application. To access, open Firebase Console, navigate to Analytics → Dashboard, then view Daily Active Users (DAU) under the Engagement metrics.
 
-5. 
-6. 
+5. Metric 5: CTR 
+  A custom Firebase Analytics event will be added for whenever users search up gas near them on our app.
+  CTR = number of users who click the generate map action button ÷ number of users who see the screen.
+6. Metric 6: Average routes planned
+   A custom Firebase Analytics event will be added for whenever users plan routes/trips on our app.
