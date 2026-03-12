@@ -102,3 +102,50 @@ When users click the notification, they are taken directly to the gas station li
 **User Flow**
 
 Notification → Open SmartFuel → View Cheapest Nearby Gas
+
+
+Problem
+
+The problem we are trying to solve is that new users may leave the app before using its main feature because they are required to create an account first. Many users who quickly want to find nearby gas stations may not want to spend time signing up or entering personal information. If users are forced to create an account before accessing the app, they may abandon the app before discovering its usefulness.
+
+The impact of this problem is that it reduces adoption and early engagement. If users cannot immediately search for nearby gas stations, they may uninstall the app or never return. Since the core value of the app is helping drivers quickly locate affordable gas stations, any friction before reaching this feature could significantly lower the number of users who successfully use the app.
+The bottleneck in the conversion funnel occurs between opening the app for the first time and successfully performing the first gas station search. If users drop off during the sign-up process, they never reach the core functionality of the app.
+
+
+Hypothesis
+
+Our hypothesis is that allowing users to continue using the app without signing in will increase adoption and early engagement. If users can immediately access the gas station search feature, they will be more likely to try the app and understand its value.
+By removing the sign-in requirement initially, we expect more users will successfully search for nearby gas stations during their first session. This should increase the number of users who experience the core functionality of the app and improve adoption rates.
+Experiment
+The experiment will be implemented using Firebase A/B Testing and tracked with Firebase Analytics.
+
+
+Audience
+
+The experiment will include new users who open the app for the first time. These users will be randomly divided into two groups:
+50% of users will see the control version (sign-in required).
+50% of users will see the variant version (guest mode allowed).
+This ensures that both variations receive an equal number of users so we can accurately compare results.
+
+Tracking
+
+Using Firebase Analytics, we will track key events related to the HEART framework metrics:
+
+Adoption metrics:
+first_open – when a user opens the app for the first time
+gas_station_search – when a user searches for nearby gas stations
+
+Retention metrics:
+returning users
+repeat gas station searches
+By comparing how many users complete a gas station search in each variation, we can determine whether removing the sign-in requirement improves adoption.
+
+Variations
+
+Variation A (Control)
+Users are required to create an account or sign in before using the app. The login screen appears immediately when the app opens. Users must sign in with an account before they can search for nearby gas stations.
+
+Variation B (Experiment)
+Users are given the option to continue as a guest. When the app opens, they can immediately search for nearby gas stations without signing in. Users may still choose to create an account later if they want to submit gas prices or save preferences.
+This variation reduces friction during onboarding and allows users to experience the app’s main feature immediately.
+
