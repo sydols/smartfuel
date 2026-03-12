@@ -21,7 +21,7 @@ Test (Variation B): The sign-up screen includes the native FlutterFlow "Continue
 # A/B Test: Gas Price Drop Notifications vs No Notifications
 
 ## User Story Number
-**US4 – Golden Path**
+**US5 – Additional Feature - Price Change Tracking**
 
 ---
 
