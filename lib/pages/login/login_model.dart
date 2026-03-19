@@ -13,10 +13,13 @@ class LoginModel extends FlutterFlowModel<LoginWidget> {
   // State field(s) for enterPass widget.
   FocusNode? enterPassFocusNode;
   TextEditingController? enterPassTextController;
+  late bool enterPassVisibility;
   String? Function(BuildContext, String?)? enterPassTextControllerValidator;
 
   @override
-  void initState(BuildContext context) {}
+  void initState(BuildContext context) {
+    enterPassVisibility = false;
+  }
 
   @override
   void dispose() {

@@ -1,8 +1,11 @@
+import '/auth/firebase_auth/auth_util.dart';
+import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_drop_down.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
+import '/index.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'about_you_model.dart';
@@ -61,21 +64,32 @@ class _AboutYouWidgetState extends State<AboutYouWidget> {
               children: [
                 Align(
                   alignment: AlignmentDirectional(0.0, 0.0),
-                  child: Container(
-                    decoration: BoxDecoration(),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.max,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
-                              0.0, 0.0, 12.0, 0.0),
-                          child: Text(
-                            'SmartFuel',
-                            style: FlutterFlowTheme.of(context)
-                                .displayLarge
-                                .override(
-                                  font: GoogleFonts.glory(
+                  child: Padding(
+                    padding:
+                        EdgeInsetsDirectional.fromSTEB(0.0, 24.0, 0.0, 0.0),
+                    child: Container(
+                      decoration: BoxDecoration(),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.max,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Padding(
+                            padding: EdgeInsetsDirectional.fromSTEB(
+                                0.0, 0.0, 12.0, 0.0),
+                            child: Text(
+                              'SmartFuel',
+                              style: FlutterFlowTheme.of(context)
+                                  .displayLarge
+                                  .override(
+                                    font: GoogleFonts.glory(
+                                      fontWeight: FlutterFlowTheme.of(context)
+                                          .displayLarge
+                                          .fontWeight,
+                                      fontStyle: FlutterFlowTheme.of(context)
+                                          .displayLarge
+                                          .fontStyle,
+                                    ),
+                                    letterSpacing: 0.0,
                                     fontWeight: FlutterFlowTheme.of(context)
                                         .displayLarge
                                         .fontWeight,
@@ -83,26 +97,19 @@ class _AboutYouWidgetState extends State<AboutYouWidget> {
                                         .displayLarge
                                         .fontStyle,
                                   ),
-                                  letterSpacing: 0.0,
-                                  fontWeight: FlutterFlowTheme.of(context)
-                                      .displayLarge
-                                      .fontWeight,
-                                  fontStyle: FlutterFlowTheme.of(context)
-                                      .displayLarge
-                                      .fontStyle,
-                                ),
+                            ),
                           ),
-                        ),
-                        ClipRRect(
-                          borderRadius: BorderRadius.circular(8.0),
-                          child: Image.asset(
-                            'assets/images/Screenshot_2026-03-09_at_1.51_Background_Removed.13_PM.png',
-                            width: 75.0,
-                            height: 75.0,
-                            fit: BoxFit.cover,
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(8.0),
+                            child: Image.asset(
+                              'assets/images/Screenshot_2026-03-09_at_1.51_Background_Removed.13_PM.png',
+                              width: 75.0,
+                              height: 75.0,
+                              fit: BoxFit.cover,
+                            ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
                 ),
@@ -457,8 +464,16 @@ class _AboutYouWidgetState extends State<AboutYouWidget> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         FFButtonWidget(
-                          onPressed: () {
-                            print('Button pressed ...');
+                          onPressed: () async {
+                            await currentUserReference!
+                                .update(createUsersRecordData(
+                              name: _model.enterNameTextController.text,
+                              dropdownSelect: _model.dropDownValue,
+                              mpg: int.tryParse(
+                                  _model.enterMpgTextController.text),
+                            ));
+
+                            context.pushNamed(NearbyMapSearchWidget.routeName);
                           },
                           text: 'Next',
                           options: FFButtonOptions(

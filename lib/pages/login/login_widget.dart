@@ -1,3 +1,4 @@
+import '/auth/firebase_auth/auth_util.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
@@ -60,21 +61,33 @@ class _LoginWidgetState extends State<LoginWidget> {
               children: [
                 Align(
                   alignment: AlignmentDirectional(0.0, 0.0),
-                  child: Container(
-                    decoration: BoxDecoration(),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.max,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
-                              0.0, 0.0, 12.0, 0.0),
-                          child: Text(
-                            'SmartFuel',
-                            style: FlutterFlowTheme.of(context)
-                                .displayLarge
-                                .override(
-                                  font: GoogleFonts.glory(
+                  child: Padding(
+                    padding:
+                        EdgeInsetsDirectional.fromSTEB(0.0, 24.0, 0.0, 0.0),
+                    child: Container(
+                      decoration: BoxDecoration(),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.max,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Padding(
+                            padding: EdgeInsetsDirectional.fromSTEB(
+                                0.0, 0.0, 12.0, 0.0),
+                            child: Text(
+                              'SmartFuel',
+                              style: FlutterFlowTheme.of(context)
+                                  .displayLarge
+                                  .override(
+                                    font: GoogleFonts.glory(
+                                      fontWeight: FlutterFlowTheme.of(context)
+                                          .displayLarge
+                                          .fontWeight,
+                                      fontStyle: FlutterFlowTheme.of(context)
+                                          .displayLarge
+                                          .fontStyle,
+                                    ),
+                                    color: FlutterFlowTheme.of(context).primary,
+                                    letterSpacing: 0.0,
                                     fontWeight: FlutterFlowTheme.of(context)
                                         .displayLarge
                                         .fontWeight,
@@ -82,26 +95,19 @@ class _LoginWidgetState extends State<LoginWidget> {
                                         .displayLarge
                                         .fontStyle,
                                   ),
-                                  letterSpacing: 0.0,
-                                  fontWeight: FlutterFlowTheme.of(context)
-                                      .displayLarge
-                                      .fontWeight,
-                                  fontStyle: FlutterFlowTheme.of(context)
-                                      .displayLarge
-                                      .fontStyle,
-                                ),
+                            ),
                           ),
-                        ),
-                        ClipRRect(
-                          borderRadius: BorderRadius.circular(8.0),
-                          child: Image.asset(
-                            'assets/images/Screenshot_2026-03-09_at_1.51_Background_Removed.13_PM.png',
-                            width: 75.0,
-                            height: 75.0,
-                            fit: BoxFit.cover,
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(8.0),
+                            child: Image.asset(
+                              'assets/images/Screenshot_2026-03-09_at_1.51_Background_Removed.13_PM.png',
+                              width: 75.0,
+                              height: 75.0,
+                              fit: BoxFit.cover,
+                            ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
                 ),
@@ -276,7 +282,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                               focusNode: _model.enterPassFocusNode,
                               autofocus: false,
                               enabled: true,
-                              obscureText: false,
+                              obscureText: !_model.enterPassVisibility,
                               decoration: InputDecoration(
                                 isDense: true,
                                 labelStyle: FlutterFlowTheme.of(context)
@@ -353,6 +359,20 @@ class _LoginWidgetState extends State<LoginWidget> {
                                 filled: true,
                                 fillColor: Color(0xFFD9D9D9),
                                 contentPadding: EdgeInsets.all(15.0),
+                                suffixIcon: InkWell(
+                                  onTap: () async {
+                                    safeSetState(() =>
+                                        _model.enterPassVisibility =
+                                            !_model.enterPassVisibility);
+                                  },
+                                  focusNode: FocusNode(skipTraversal: true),
+                                  child: Icon(
+                                    _model.enterPassVisibility
+                                        ? Icons.visibility_outlined
+                                        : Icons.visibility_off_outlined,
+                                    size: 22,
+                                  ),
+                                ),
                               ),
                               style: FlutterFlowTheme.of(context)
                                   .bodyMedium
@@ -398,8 +418,20 @@ class _LoginWidgetState extends State<LoginWidget> {
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
                         FFButtonWidget(
-                          onPressed: () {
-                            print('Button pressed ...');
+                          onPressed: () async {
+                            GoRouter.of(context).prepareAuthEvent();
+
+                            final user = await authManager.signInWithEmail(
+                              context,
+                              _model.enterEmailTextController.text,
+                              _model.enterPassTextController.text,
+                            );
+                            if (user == null) {
+                              return;
+                            }
+
+                            context.goNamedAuth(NearbyMapSearchWidget.routeName,
+                                context.mounted);
                           },
                           text: 'Login',
                           options: FFButtonOptions(

@@ -10,7 +10,8 @@ Future initFirebase() async {
             projectId: "smart-fuel-zxvlat",
             storageBucket: "smart-fuel-zxvlat.firebasestorage.app",
             messagingSenderId: "969437710080",
-            appId: "1:969437710080:web:2251dd61fe728ee6f195e5"));
+            appId: "1:969437710080:web:2251dd61fe728ee6f195e5",
+            measurementId: "G-X0W9G227CV"));
   } else {
     await Firebase.initializeApp();
   }

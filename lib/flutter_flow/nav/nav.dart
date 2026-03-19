@@ -86,24 +86,21 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               appStateNotifier.loggedIn ? NavBarPage() : LoginWidget(),
         ),
         FFRoute(
-          name: ProfileWidget.routeName,
-          path: ProfileWidget.routePath,
-          builder: (context, params) => ProfileWidget(),
+          name: AboutYouWidget.routeName,
+          path: AboutYouWidget.routePath,
+          builder: (context, params) => AboutYouWidget(),
         ),
         FFRoute(
-          name: LoginWidget.routeName,
-          path: LoginWidget.routePath,
-          builder: (context, params) => LoginWidget(),
+          name: SettingsWidget.routeName,
+          path: SettingsWidget.routePath,
+          builder: (context, params) => params.isEmpty
+              ? NavBarPage(initialPage: 'settings')
+              : SettingsWidget(),
         ),
         FFRoute(
           name: SignUpWidget.routeName,
           path: SignUpWidget.routePath,
           builder: (context, params) => SignUpWidget(),
-        ),
-        FFRoute(
-          name: AboutYouWidget.routeName,
-          path: AboutYouWidget.routePath,
-          builder: (context, params) => AboutYouWidget(),
         ),
         FFRoute(
             name: NearbyMapSearchWidget.routeName,
@@ -123,6 +120,11 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
                     initialPage: 'NearbyListSearch',
                     page: NearbyListSearchWidget(),
                   )),
+        FFRoute(
+          name: LoginWidget.routeName,
+          path: LoginWidget.routePath,
+          builder: (context, params) => LoginWidget(),
+        ),
         FFRoute(
             name: OnRouteSearchWidget.routeName,
             path: OnRouteSearchWidget.routePath,
