@@ -1,15 +1,64 @@
-A/B Test Name:  Make a meaningful name for the test. For example  "Signup/Sign In 1 screen or 2 screens", could be a title for an A/B test to determine if users prefer having account creation and login on a single screen, or two screens.
+A/B Test Name: Sort by Price vs. Sort by Distance for Gas Stations
 
-User Story Number: For instance, the "Signup/Sign In 1 screen or 2 screens" A/B test would be a task under US1 (Account Creation). 
+User Story Number: US3 (View Nearby Gas Stations)
 
-Metrics:  Your team's HEART metrics that this A/B test measures.
+Metrics (HEART Framework):
 
-Hypothesis: State your hypothesis for this A/B test
+Happiness: User satisfaction (measured via in-app rating prompt)
+Engagement: Number of gas station clicks per session
+Adoption: Percentage of users who perform a gas search
+Retention: Returning users who search again within 7 days
+Task Success: Number of users who select a gas station (proxy for intent to visit)
 
-What problem are we trying to solve? Its impact? (e.g. how big this problem is to our customers?) In formulating the hypothesis, first you need to define the problem you want to solve. For example, you are an SaaS that offers free trial and you want to improve Adoption. But that problem might be too broad to form an A/B test as you can simply test one variable in an A/B test to be effective (otherwise you won’t know which variable is causing the change). So to narrow down the problem you want to solve, you need to find out the bottle-neck in the conversion funnel – where do people drop off the most? Are there any key information or call-to-action buttons that you expect people to read/click but they didn’t? 
+Problem
+The main goal of SmartFuel is to help users quickly find the best gas station. However, users may have different priorities—some care more about the cheapest price, while others prioritize the closest location. Currently, if the default sorting method does not match user preference, users may need to manually switch filters or may become frustrated and leave the app.
 
-After narrowing down the problem you want to solve, you then need to make a hypothesis as to what causes those bottlenecks and what you can do to improve. For example, you noticed most of the visitors will visit your “Features” page but very few of them will actually scroll past even half of the page so many features that you think are important are not actually viewed by the visitors. To improve this, one hypothesis might be using tab or toggle list design to make your page shorter and visitors can select to dig deeper into content that they are interested in by expanding the content. Remember when formulating your hypothesis, change only one variable so that you will know it’s really that variable that is causing the change in conversion..
+The bottleneck occurs after users perform a gas search but before they select a station. If users do not immediately see relevant results, they may not interact further. This reduces engagement and task success, limiting the effectiveness of the app.
 
-Experiment - Detail out the experiment setup that you will use to test your hypothesis using Firebase capabilities. Describe the audiences – will all users be able to view the experiment? Or you will only allocate x% of your user base to the experiment? Lay out the details with the rationale behind this decision. Describe the tracking using Firebase Analytics. With your HEART metrics, what tracking needs to be set up? 
+Hypothesis
+If we change the default sorting method of gas stations, then user engagement and task success will improve. Specifically, we hypothesize that sorting by price will lead to more station selections compared to sorting by distance, because users are primarily motivated to save money on fuel.
 
-Variations - In this section, describe what variations you would like to test. Layout the design work related and add diagrams, mockups and designs related to the confirmed variation that you’d like to test.
+Experiment
+We will implement this test using Firebase A/B Testing with Remote Config.
+
+Audience:
+
+All users who perform a gas search
+Users must have location services enabled
+
+Traffic Allocation:
+
+50% → Variation A (Sort by Distance)
+50% → Variation B (Sort by Price)
+
+A 50/50 split ensures both variations receive enough traffic to reach statistical significance efficiently.
+
+Firebase Analytics Tracking:
+We will track the following events:
+
+gas_search – when a user searches for gas stations
+station_view – when a user clicks on a station
+station_selected – when a user chooses a station (e.g., for navigation)
+filter_changed – if users manually switch sorting method
+
+HEART Metrics Mapping:
+
+Engagement → station_view
+Adoption → gas_search
+Retention → repeat gas_search over time
+Task Success → station_selected
+Happiness → optional in-app feedback prompt
+
+Variations
+
+Variation A (Control): Sort by Distance
+
+Gas stations are displayed starting with the closest location
+User flow:
+Search → View nearest stations → Select station
+
+Variation B (Experimental): Sort by Price
+
+Gas stations are displayed starting with the cheapest price
+User flow:
+Search → View cheapest stations → Select station
