@@ -10,6 +10,7 @@ import 'place.dart';
 import 'uploaded_file.dart';
 import '/backend/backend.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import '/backend/schema/structs/index.dart';
 import '/auth/firebase_auth/auth_util.dart';
 
 /// Takes the user's current location in LatLng form and outputs it as a
@@ -202,4 +203,88 @@ LatLng? safeBuildLatLng(
     return null;
   }
   return LatLng(lat, lng);
+}
+
+List<LatLng>? parseStationLatLng(dynamic apiResponse) {
+  final results =
+      apiResponse['results'] as List? ?? []; // ← 'results' not 'places'
+  return results.map((r) {
+    final geometry = r['geometry']['location']; // ← Google Maps structure
+    return LatLng(geometry['lat'],
+        geometry['lng']); // ← 'lat'/'lng' not latitude/longitude
+  }).toList();
+}
+
+LatLng? convertToLatLng(
+  double? lat,
+  double? lng,
+) {
+  // Create a function called convertToLatLng that takes two nullable doubles (double? lat, double? lng) and returns a nullable LatLng?. Inside the function, check if either lat or lng is null; if they are, return null. Otherwise, return a LatLng object using those two values
+  if (lat == null || lng == null) {
+    return null;
+  }
+  return LatLng(lat!, lng!);
+}
+
+double calculateDistanceInMiles(
+  LatLng? startLoc,
+  LatLng? stationLoc,
+) {
+  if (startLoc == null || stationLoc == null) return 0.0;
+
+  var dLat = (stationLoc.latitude - startLoc.latitude) * math.pi / 180;
+  ;
+  var dLon = (stationLoc.longitude - startLoc.longitude) * math.pi / 180;
+  ;
+
+  var a = math.sin(dLat / 2) * math.sin(dLat / 2) +
+      math.cos((startLoc.latitude) * math.pi / 180) *
+          math.cos((stationLoc.latitude) * math.pi / 180) *
+          math.sin(dLon / 2) *
+          math.sin(dLon / 2);
+
+  var c = 2 * math.asin(math.sqrt(a));
+
+  // Multiply by the radius of the Earth in miles
+  double distance = 3958.8 * c;
+
+  // Round to 1 decimal place (e.g., 4.2 miles)
+  return double.parse(distance.toStringAsFixed(1));
+}
+
+dynamic buildStationJson(
+  String? stationName,
+  String? stationAddress,
+  double? lat,
+  double? lng,
+  double? distance,
+) {
+  return {
+    "name": stationName ?? "Unknown Station",
+    "address": stationAddress ?? "Unknown Address",
+    "lat": lat ?? 0.0,
+    "lng": lng ?? 0.0,
+    "distance": distance ?? 0.0
+  };
+}
+
+List<LatLng> extractMarkersFromJson(List<dynamic>? stationList) {
+  if (stationList == null || stationList.isEmpty) {
+    return [];
+  }
+
+  List<LatLng> markers = [];
+
+  for (var station in stationList) {
+    // Safely extract lat and lng, defaulting to 0.0 if missing
+    double lat = station['lat']?.toDouble() ?? 0.0;
+    double lng = station['lng']?.toDouble() ?? 0.0;
+
+    // Only add valid coordinates
+    if (lat != 0.0 && lng != 0.0) {
+      markers.add(LatLng(lat, lng));
+    }
+  }
+
+  return markers;
 }

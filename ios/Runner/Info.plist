@@ -53,9 +53,9 @@
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 
-	<key>NSLocationWhenInUseUsageDescription</key>
-    <string>In order to search nearby, this app needs location permissions</string>
 
+	<key>NSLocationWhenInUseUsageDescription</key>
+    <string>Enable SmartFuel to use your location to find gas stations near you</string>
 
 
 

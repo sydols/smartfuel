@@ -1,4 +1,5 @@
 import 'dart:convert';
+
 import 'package:flutter/foundation.dart';
 
 import '/flutter_flow/flutter_flow_util.dart';
@@ -7,76 +8,6 @@ import 'api_manager.dart';
 export 'api_manager.dart' show ApiCallResponse;
 
 const _kPrivateApiFunctionName = 'ffPrivateApiCall';
-
-class GoogleMapsSearchNearbyCall {
-  static Future<ApiCallResponse> call({
-    double? lat = 37.7937,
-    double? lng = -122.3965,
-    double? radius = 500,
-    int? resultCount = 10,
-  }) async {
-    final ffApiRequestBody = '''
-{
-  "includedTypes": [
-    "gas_station",
-    "electric_vehicle_charging_station"
-  ],
-  "maxResultCount": ${resultCount},
-  "locationRestriction": {
-    "circle": {
-      "center": {
-        "latitude": ${lat},
-        "longitude": ${lng}
-      },
-      "radius": ${radius}
-    }
-  }
-}''';
-    return ApiManager.instance.makeApiCall(
-      callName: 'Google Maps Search Nearby',
-      apiUrl: 'https://places.googleapis.com/v1/places:searchNearby',
-      callType: ApiCallType.POST,
-      headers: {
-        'Content-Type': 'application/json',
-        'X-Goog-Api-Key': 'AIzaSyApoT7jBvPSLIYoGDjBGQ2lZVrJFqrhh1k',
-        'X-Goog-FieldMask': 'places.displayName,places.formattedAddress',
-      },
-      params: {},
-      body: ffApiRequestBody,
-      bodyType: BodyType.JSON,
-      returnBody: true,
-      encodeBodyUtf8: false,
-      decodeUtf8: false,
-      cache: false,
-      isStreamingApi: false,
-      alwaysAllowBody: false,
-    );
-  }
-
-  static List<String>? formattedAddress(dynamic response) => (getJsonField(
-        response,
-        r'''$.places[:].formattedAddress''',
-        true,
-      ) as List?)
-          ?.withoutNulls
-          .map((x) => castToType<String>(x))
-          .withoutNulls
-          .toList();
-  static List<String>? displayName(dynamic response) => (getJsonField(
-        response,
-        r'''$.places[:].displayName.text''',
-        true,
-      ) as List?)
-          ?.withoutNulls
-          .map((x) => castToType<String>(x))
-          .withoutNulls
-          .toList();
-  static List? allPlaces(dynamic response) => getJsonField(
-        response,
-        r'''$.places''',
-        true,
-      ) as List?;
-}
 
 class GoogleMapsRouteCall {
   static Future<ApiCallResponse> call({
@@ -139,7 +70,7 @@ class GoogleMapsRouteCall {
 
 class GoogleGeocodingCall {
   static Future<ApiCallResponse> call({
-    String? addressString = '',
+    String? addressString = '45 Upper College Rd, Kingston, RI 02881',
   }) async {
     return ApiManager.instance.makeApiCall(
       callName: 'Google Geocoding',
@@ -171,6 +102,95 @@ class GoogleGeocodingCall {
         response,
         r'''$.results[0].formatted_address''',
       );
+}
+
+class GasStationListCall {
+  static Future<ApiCallResponse> call() async {
+    return ApiManager.instance.makeApiCall(
+      callName: 'Gas Station List',
+      apiUrl: 'https://sheetdb.io/api/v1/c7guhz7axvu87',
+      callType: ApiCallType.GET,
+      headers: {},
+      params: {},
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      isStreamingApi: false,
+      alwaysAllowBody: false,
+    );
+  }
+}
+
+class GoogleMapsSearchNearbyCall {
+  static Future<ApiCallResponse> call({
+    double? lat = 37.7937,
+    double? lng = -122.3965,
+    double? radius = 5000,
+    int? resultCount = 20,
+  }) async {
+    final ffApiRequestBody = '''
+{
+  "includedTypes": [
+    "gas_station",
+    "electric_vehicle_charging_station"
+  ],
+  "maxResultCount": ${resultCount},
+  "locationRestriction": {
+    "circle": {
+      "center": {
+        "latitude": ${lat},
+        "longitude": ${lng}
+      },
+      "radius": ${radius}
+    }
+  }
+}''';
+    return ApiManager.instance.makeApiCall(
+      callName: 'Google Maps Search Nearby',
+      apiUrl: 'https://places.googleapis.com/v1/places:searchNearby',
+      callType: ApiCallType.POST,
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Goog-Api-Key': 'AIzaSyApoT7jBvPSLIYoGDjBGQ2lZVrJFqrhh1k',
+        'X-Goog-FieldMask':
+            'places.displayName,places.formattedAddress,places.location',
+      },
+      params: {},
+      body: ffApiRequestBody,
+      bodyType: BodyType.JSON,
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      isStreamingApi: false,
+      alwaysAllowBody: false,
+    );
+  }
+
+  static List<String>? formattedAddress(dynamic response) => (getJsonField(
+        response,
+        r'''$.places[:].formattedAddress''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<String>(x))
+          .withoutNulls
+          .toList();
+  static List<String>? displayName(dynamic response) => (getJsonField(
+        response,
+        r'''$.places[:].displayName.text''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<String>(x))
+          .withoutNulls
+          .toList();
+  static List? allPlaces(dynamic response) => getJsonField(
+        response,
+        r'''$.places''',
+        true,
+      ) as List?;
 }
 
 class ApiPagingParams {

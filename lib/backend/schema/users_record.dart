@@ -65,6 +65,16 @@ class UsersRecord extends FirestoreRecord {
   int get rating => _rating ?? 0;
   bool hasRating() => _rating != null;
 
+  // "login_count" field.
+  int? _loginCount;
+  int get loginCount => _loginCount ?? 0;
+  bool hasLoginCount() => _loginCount != null;
+
+  // "login_time" field.
+  DateTime? _loginTime;
+  DateTime? get loginTime => _loginTime;
+  bool hasLoginTime() => _loginTime != null;
+
   void _initializeFields() {
     _name = snapshotData['name'] as String?;
     _photoUrl = snapshotData['photo_url'] as String?;
@@ -76,6 +86,8 @@ class UsersRecord extends FirestoreRecord {
     _dropdownSelect = snapshotData['dropdown_select'] as String?;
     _mpg = castToType<int>(snapshotData['mpg']);
     _rating = castToType<int>(snapshotData['rating']);
+    _loginCount = castToType<int>(snapshotData['login_count']);
+    _loginTime = snapshotData['login_time'] as DateTime?;
   }
 
   static CollectionReference get collection =>
@@ -122,6 +134,8 @@ Map<String, dynamic> createUsersRecordData({
   String? dropdownSelect,
   int? mpg,
   int? rating,
+  int? loginCount,
+  DateTime? loginTime,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -135,6 +149,8 @@ Map<String, dynamic> createUsersRecordData({
       'dropdown_select': dropdownSelect,
       'mpg': mpg,
       'rating': rating,
+      'login_count': loginCount,
+      'login_time': loginTime,
     }.withoutNulls,
   );
 
@@ -155,7 +171,9 @@ class UsersRecordDocumentEquality implements Equality<UsersRecord> {
         e1?.phoneNumber == e2?.phoneNumber &&
         e1?.dropdownSelect == e2?.dropdownSelect &&
         e1?.mpg == e2?.mpg &&
-        e1?.rating == e2?.rating;
+        e1?.rating == e2?.rating &&
+        e1?.loginCount == e2?.loginCount &&
+        e1?.loginTime == e2?.loginTime;
   }
 
   @override
@@ -169,7 +187,9 @@ class UsersRecordDocumentEquality implements Equality<UsersRecord> {
         e?.phoneNumber,
         e?.dropdownSelect,
         e?.mpg,
-        e?.rating
+        e?.rating,
+        e?.loginCount,
+        e?.loginTime
       ]);
 
   @override

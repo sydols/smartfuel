@@ -4,6 +4,7 @@ import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import '/index.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'nps_model.dart';
@@ -29,6 +30,8 @@ class _NpsWidgetState extends State<NpsWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => NpsModel());
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -41,8 +44,8 @@ class _NpsWidgetState extends State<NpsWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: double.infinity,
-      height: double.infinity,
+      width: 325.0,
+      height: 325.0,
       decoration: BoxDecoration(
         color: FlutterFlowTheme.of(context).secondaryBackground,
       ),
@@ -346,6 +349,8 @@ class _NpsWidgetState extends State<NpsWidget> {
                 await currentUserReference!.update(createUsersRecordData(
                   rating: _model.localRating,
                 ));
+
+                context.goNamed(NearbyListSearchWidget.routeName);
               },
               text: 'Submit',
               options: FFButtonOptions(

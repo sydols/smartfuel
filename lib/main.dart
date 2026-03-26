@@ -1,3 +1,4 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -10,14 +11,13 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import 'flutter_flow/flutter_flow_util.dart';
 import 'index.dart';
 
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   GoRouter.optionURLReflectsImperativeAPIs = true;
   usePathUrlStrategy();
 
   await initFirebase();
-
-  await FlutterFlowTheme.initialize();
 
   runApp(MyApp());
 }
@@ -31,8 +31,16 @@ class MyApp extends StatefulWidget {
       context.findAncestorStateOfType<_MyAppState>()!;
 }
 
+class MyAppScrollBehavior extends MaterialScrollBehavior {
+  @override
+  Set<PointerDeviceKind> get dragDevices => {
+        PointerDeviceKind.touch,
+        PointerDeviceKind.mouse,
+      };
+}
+
 class _MyAppState extends State<MyApp> {
-  ThemeMode _themeMode = FlutterFlowTheme.themeMode;
+  ThemeMode _themeMode = ThemeMode.system;
 
   late AppStateNotifier _appStateNotifier;
   late GoRouter _router;
@@ -79,7 +87,6 @@ class _MyAppState extends State<MyApp> {
 
   void setThemeMode(ThemeMode mode) => safeSetState(() {
         _themeMode = mode;
-        FlutterFlowTheme.saveThemeMode(mode);
       });
 
   @override
@@ -87,6 +94,7 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp.router(
       debugShowCheckedModeBanner: false,
       title: 'SmartFuel',
+      scrollBehavior: MyAppScrollBehavior(),
       localizationsDelegates: [
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
@@ -95,10 +103,6 @@ class _MyAppState extends State<MyApp> {
       supportedLocales: const [Locale('en', '')],
       theme: ThemeData(
         brightness: Brightness.light,
-        useMaterial3: false,
-      ),
-      darkTheme: ThemeData(
-        brightness: Brightness.dark,
         useMaterial3: false,
       ),
       themeMode: _themeMode,
@@ -139,9 +143,9 @@ class _NavBarPageState extends State<NavBarPage> {
   Widget build(BuildContext context) {
     final tabs = {
       'settings': SettingsWidget(),
-      'NearbyMapSearch': NearbyMapSearchWidget(),
-      'NearbyListSearch': NearbyListSearchWidget(),
       'onRouteSearch': OnRouteSearchWidget(),
+      'NearbyListSearch': NearbyListSearchWidget(),
+      'NearbyMapSearch': NearbyMapSearchWidget(),
     };
     final currentIndex = tabs.keys.toList().indexOf(_currentPageName);
 
@@ -171,10 +175,10 @@ class _NavBarPageState extends State<NavBarPage> {
           ),
           BottomNavigationBarItem(
             icon: Icon(
-              Icons.pin_drop_sharp,
+              Icons.route,
               size: 24.0,
             ),
-            label: 'NearbyMapSearch',
+            label: 'onRouteSearch',
             tooltip: '',
           ),
           BottomNavigationBarItem(
@@ -187,10 +191,10 @@ class _NavBarPageState extends State<NavBarPage> {
           ),
           BottomNavigationBarItem(
             icon: Icon(
-              Icons.route,
+              Icons.pin_drop_sharp,
               size: 24.0,
             ),
-            label: 'onRouteSearch',
+            label: 'NearbyMapSearch',
             tooltip: '',
           )
         ],

@@ -39,15 +39,25 @@ class OnRouteSearchModel extends FlutterFlowModel<OnRouteSearchWidget> {
 
   dynamic boundsResult;
 
-  List<LatLng> stationMarkers = [];
-  void addToStationMarkers(LatLng item) => stationMarkers.add(item);
-  void removeFromStationMarkers(LatLng item) => stationMarkers.remove(item);
-  void removeAtIndexFromStationMarkers(int index) =>
-      stationMarkers.removeAt(index);
-  void insertAtIndexInStationMarkers(int index, LatLng item) =>
-      stationMarkers.insert(index, item);
-  void updateStationMarkersAtIndex(int index, Function(LatLng) updateFn) =>
-      stationMarkers[index] = updateFn(stationMarkers[index]);
+  List<dynamic> finalStationsList = [];
+  void addToFinalStationsList(dynamic item) => finalStationsList.add(item);
+  void removeFromFinalStationsList(dynamic item) =>
+      finalStationsList.remove(item);
+  void removeAtIndexFromFinalStationsList(int index) =>
+      finalStationsList.removeAt(index);
+  void insertAtIndexInFinalStationsList(int index, dynamic item) =>
+      finalStationsList.insert(index, item);
+  void updateFinalStationsListAtIndex(int index, Function(dynamic) updateFn) =>
+      finalStationsList[index] = updateFn(finalStationsList[index]);
+
+  List<LatLng> mapPins = [];
+  void addToMapPins(LatLng item) => mapPins.add(item);
+  void removeFromMapPins(LatLng item) => mapPins.remove(item);
+  void removeAtIndexFromMapPins(int index) => mapPins.removeAt(index);
+  void insertAtIndexInMapPins(int index, LatLng item) =>
+      mapPins.insert(index, item);
+  void updateMapPinsAtIndex(int index, Function(LatLng) updateFn) =>
+      mapPins[index] = updateFn(mapPins[index]);
 
   ///  State fields for stateful widgets in this page.
 

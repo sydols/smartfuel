@@ -2,6 +2,8 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '/backend/backend.dart';
+import '/backend/schema/structs/index.dart';
 
 import '/auth/base_auth_user_provider.dart';
 
@@ -98,19 +100,24 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               : SettingsWidget(),
         ),
         FFRoute(
+            name: OnRouteSearchWidget.routeName,
+            path: OnRouteSearchWidget.routePath,
+            builder: (context, params) => params.isEmpty
+                ? NavBarPage(initialPage: 'onRouteSearch')
+                : NavBarPage(
+                    initialPage: 'onRouteSearch',
+                    page: OnRouteSearchWidget(),
+                  )),
+        FFRoute(
           name: SignUpWidget.routeName,
           path: SignUpWidget.routePath,
           builder: (context, params) => SignUpWidget(),
         ),
         FFRoute(
-            name: NearbyMapSearchWidget.routeName,
-            path: NearbyMapSearchWidget.routePath,
-            builder: (context, params) => params.isEmpty
-                ? NavBarPage(initialPage: 'NearbyMapSearch')
-                : NavBarPage(
-                    initialPage: 'NearbyMapSearch',
-                    page: NearbyMapSearchWidget(),
-                  )),
+          name: LoginWidget.routeName,
+          path: LoginWidget.routePath,
+          builder: (context, params) => LoginWidget(),
+        ),
         FFRoute(
             name: NearbyListSearchWidget.routeName,
             path: NearbyListSearchWidget.routePath,
@@ -121,18 +128,13 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
                     page: NearbyListSearchWidget(),
                   )),
         FFRoute(
-          name: LoginWidget.routeName,
-          path: LoginWidget.routePath,
-          builder: (context, params) => LoginWidget(),
-        ),
-        FFRoute(
-            name: OnRouteSearchWidget.routeName,
-            path: OnRouteSearchWidget.routePath,
+            name: NearbyMapSearchWidget.routeName,
+            path: NearbyMapSearchWidget.routePath,
             builder: (context, params) => params.isEmpty
-                ? NavBarPage(initialPage: 'onRouteSearch')
+                ? NavBarPage(initialPage: 'NearbyMapSearch')
                 : NavBarPage(
-                    initialPage: 'onRouteSearch',
-                    page: OnRouteSearchWidget(),
+                    initialPage: 'NearbyMapSearch',
+                    page: NearbyMapSearchWidget(),
                   ))
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );
@@ -252,6 +254,7 @@ class FFParameters {
     ParamType type, {
     bool isList = false,
     List<String>? collectionNamePath,
+    StructBuilder<T>? structBuilder,
   }) {
     if (futureParamValues.containsKey(paramName)) {
       return futureParamValues[paramName];
@@ -270,6 +273,7 @@ class FFParameters {
       type,
       isList,
       collectionNamePath: collectionNamePath,
+      structBuilder: structBuilder,
     );
   }
 }
