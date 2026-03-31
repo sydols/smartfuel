@@ -94,6 +94,8 @@ class _NpsWidgetState extends State<NpsWidget> {
                         size: 30.0,
                       ),
                       onPressed: () async {
+                        logFirebaseEvent('NPS_COMP_oneStarUF_ON_TAP');
+                        logFirebaseEvent('oneStarUF_update_component_state');
                         _model.localRating = 1;
                         _model.oneStarF = true;
                         _model.twoStarF = false;
@@ -116,7 +118,9 @@ class _NpsWidgetState extends State<NpsWidget> {
                         size: 30.0,
                       ),
                       onPressed: () async {
+                        logFirebaseEvent('NPS_COMP_oneStarF_ON_TAP');
                         if (_model.localRating > 1) {
+                          logFirebaseEvent('oneStarF_update_component_state');
                           _model.localRating = 1;
                           _model.oneStarF = true;
                           _model.twoStarF = false;
@@ -125,6 +129,7 @@ class _NpsWidgetState extends State<NpsWidget> {
                           _model.fiveStarF = false;
                           safeSetState(() {});
                         } else {
+                          logFirebaseEvent('oneStarF_update_component_state');
                           _model.localRating = 0;
                           _model.oneStarF = false;
                           _model.twoStarF = false;
@@ -148,6 +153,8 @@ class _NpsWidgetState extends State<NpsWidget> {
                         size: 30.0,
                       ),
                       onPressed: () async {
+                        logFirebaseEvent('NPS_COMP_twoStarUF_ON_TAP');
+                        logFirebaseEvent('twoStarUF_update_component_state');
                         _model.localRating = 2;
                         _model.oneStarF = true;
                         _model.twoStarF = true;
@@ -170,7 +177,9 @@ class _NpsWidgetState extends State<NpsWidget> {
                         size: 30.0,
                       ),
                       onPressed: () async {
+                        logFirebaseEvent('NPS_COMP_twoStarF_ON_TAP');
                         if (_model.localRating > 2) {
+                          logFirebaseEvent('twoStarF_update_component_state');
                           _model.localRating = 2;
                           _model.oneStarF = true;
                           _model.twoStarF = true;
@@ -179,6 +188,7 @@ class _NpsWidgetState extends State<NpsWidget> {
                           _model.fiveStarF = false;
                           safeSetState(() {});
                         } else {
+                          logFirebaseEvent('twoStarF_update_component_state');
                           _model.localRating = 0;
                           _model.oneStarF = true;
                           _model.twoStarF = false;
@@ -202,6 +212,8 @@ class _NpsWidgetState extends State<NpsWidget> {
                         size: 30.0,
                       ),
                       onPressed: () async {
+                        logFirebaseEvent('NPS_COMP_threeStarUF_ON_TAP');
+                        logFirebaseEvent('threeStarUF_update_component_state');
                         _model.localRating = 3;
                         _model.oneStarF = true;
                         _model.twoStarF = true;
@@ -224,7 +236,9 @@ class _NpsWidgetState extends State<NpsWidget> {
                         size: 30.0,
                       ),
                       onPressed: () async {
+                        logFirebaseEvent('NPS_COMP_threeStarF_ON_TAP');
                         if (_model.localRating > 3) {
+                          logFirebaseEvent('threeStarF_update_component_state');
                           _model.localRating = 3;
                           _model.oneStarF = true;
                           _model.twoStarF = true;
@@ -233,6 +247,7 @@ class _NpsWidgetState extends State<NpsWidget> {
                           _model.fiveStarF = false;
                           safeSetState(() {});
                         } else {
+                          logFirebaseEvent('threeStarF_update_component_state');
                           _model.localRating = 2;
                           _model.oneStarF = true;
                           _model.twoStarF = true;
@@ -256,6 +271,8 @@ class _NpsWidgetState extends State<NpsWidget> {
                         size: 30.0,
                       ),
                       onPressed: () async {
+                        logFirebaseEvent('NPS_COMP_fourStarUF_ON_TAP');
+                        logFirebaseEvent('fourStarUF_update_component_state');
                         _model.localRating = 4;
                         _model.oneStarF = true;
                         _model.twoStarF = true;
@@ -278,7 +295,9 @@ class _NpsWidgetState extends State<NpsWidget> {
                         size: 30.0,
                       ),
                       onPressed: () async {
+                        logFirebaseEvent('NPS_COMP_fourStarF_ON_TAP');
                         if (_model.localRating > 4) {
+                          logFirebaseEvent('fourStarF_update_component_state');
                           _model.localRating = 4;
                           _model.oneStarF = true;
                           _model.twoStarF = true;
@@ -287,6 +306,7 @@ class _NpsWidgetState extends State<NpsWidget> {
                           _model.fiveStarF = false;
                           safeSetState(() {});
                         } else {
+                          logFirebaseEvent('fourStarF_update_component_state');
                           _model.localRating = 3;
                           _model.oneStarF = true;
                           _model.twoStarF = true;
@@ -310,6 +330,8 @@ class _NpsWidgetState extends State<NpsWidget> {
                         size: 30.0,
                       ),
                       onPressed: () async {
+                        logFirebaseEvent('NPS_COMP_fiveStarUF_ON_TAP');
+                        logFirebaseEvent('fiveStarUF_update_component_state');
                         _model.localRating = 5;
                         _model.oneStarF = true;
                         _model.twoStarF = true;
@@ -332,6 +354,8 @@ class _NpsWidgetState extends State<NpsWidget> {
                         size: 30.0,
                       ),
                       onPressed: () async {
+                        logFirebaseEvent('NPS_COMP_fiveStarF_ON_TAP');
+                        logFirebaseEvent('fiveStarF_update_component_state');
                         _model.localRating = 4;
                         _model.oneStarF = true;
                         _model.twoStarF = true;
@@ -346,9 +370,13 @@ class _NpsWidgetState extends State<NpsWidget> {
             ),
             FFButtonWidget(
               onPressed: () async {
+                logFirebaseEvent('NPS_COMP_submitButton_ON_TAP');
+                logFirebaseEvent('submitButton_backend_call');
+
                 await currentUserReference!.update(createUsersRecordData(
                   rating: _model.localRating,
                 ));
+                logFirebaseEvent('submitButton_navigate_to');
 
                 context.goNamed(NearbyListSearchWidget.routeName);
               },

@@ -170,145 +170,172 @@ class _NearbyMapSearchWidgetState extends State<NearbyMapSearchWidget> {
                     ),
                   ),
                 ),
-                FlutterFlowPlacePicker(
-                  iOSGoogleMapsApiKey:
-                      'AIzaSyApoT7jBvPSLIYoGDjBGQ2lZVrJFqrhh1k',
-                  androidGoogleMapsApiKey:
-                      'AIzaSyApoT7jBvPSLIYoGDjBGQ2lZVrJFqrhh1k',
-                  webGoogleMapsApiKey:
-                      'AIzaSyApoT7jBvPSLIYoGDjBGQ2lZVrJFqrhh1k',
-                  onSelect: (place) async {
-                    safeSetState(() => _model.placePickerValue = place);
-                    (await _model.googleMapsController.future).animateCamera(
-                        CameraUpdate.newLatLng(place.latLng.toGoogleMaps()));
-                  },
-                  defaultText: 'Select Location',
-                  icon: Icon(
-                    Icons.place,
-                    color: FlutterFlowTheme.of(context).info,
-                    size: 16.0,
-                  ),
-                  buttonOptions: FFButtonOptions(
-                    width: 200.0,
-                    height: 40.0,
-                    color: FlutterFlowTheme.of(context).primary,
-                    textStyle: FlutterFlowTheme.of(context).titleSmall.override(
-                          font: GoogleFonts.glory(
-                            fontWeight: FlutterFlowTheme.of(context)
-                                .titleSmall
-                                .fontWeight,
-                            fontStyle: FlutterFlowTheme.of(context)
-                                .titleSmall
-                                .fontStyle,
-                          ),
-                          color: FlutterFlowTheme.of(context).info,
-                          letterSpacing: 0.0,
-                          fontWeight: FlutterFlowTheme.of(context)
-                              .titleSmall
-                              .fontWeight,
-                          fontStyle:
-                              FlutterFlowTheme.of(context).titleSmall.fontStyle,
-                        ),
-                    elevation: 0.0,
-                    borderSide: BorderSide(
-                      color: Colors.transparent,
-                      width: 1.0,
+                Align(
+                  alignment: AlignmentDirectional(0.0, 0.0),
+                  child: FlutterFlowPlacePicker(
+                    iOSGoogleMapsApiKey:
+                        'AIzaSyApoT7jBvPSLIYoGDjBGQ2lZVrJFqrhh1k',
+                    androidGoogleMapsApiKey:
+                        'AIzaSyApoT7jBvPSLIYoGDjBGQ2lZVrJFqrhh1k',
+                    webGoogleMapsApiKey:
+                        'AIzaSyApoT7jBvPSLIYoGDjBGQ2lZVrJFqrhh1k',
+                    onSelect: (place) async {
+                      safeSetState(() => _model.placePickerValue = place);
+                      (await _model.googleMapsController.future).animateCamera(
+                          CameraUpdate.newLatLng(place.latLng.toGoogleMaps()));
+                    },
+                    defaultText: 'Select Location',
+                    icon: Icon(
+                      Icons.place,
+                      color: FlutterFlowTheme.of(context).info,
+                      size: 16.0,
                     ),
-                    borderRadius: BorderRadius.circular(8.0),
+                    buttonOptions: FFButtonOptions(
+                      width: 200.0,
+                      height: 40.0,
+                      color: FlutterFlowTheme.of(context).primary,
+                      textStyle:
+                          FlutterFlowTheme.of(context).titleSmall.override(
+                                font: GoogleFonts.glory(
+                                  fontWeight: FlutterFlowTheme.of(context)
+                                      .titleSmall
+                                      .fontWeight,
+                                  fontStyle: FlutterFlowTheme.of(context)
+                                      .titleSmall
+                                      .fontStyle,
+                                ),
+                                color: FlutterFlowTheme.of(context).info,
+                                letterSpacing: 0.0,
+                                fontWeight: FlutterFlowTheme.of(context)
+                                    .titleSmall
+                                    .fontWeight,
+                                fontStyle: FlutterFlowTheme.of(context)
+                                    .titleSmall
+                                    .fontStyle,
+                              ),
+                      elevation: 0.0,
+                      borderSide: BorderSide(
+                        color: Colors.transparent,
+                        width: 1.0,
+                      ),
+                      borderRadius: BorderRadius.circular(8.0),
+                    ),
                   ),
                 ),
-                FFButtonWidget(
-                  onPressed: () async {
-                    safeSetState(() {});
-                    _model.placesResultCopy =
-                        await GoogleMapsSearchNearbyCall.call(
-                      lat: functions
-                          .currLocationToLat(_model.placePickerValue.latLng),
-                      lng: functions
-                          .currLocationtoLng(_model.placePickerValue.latLng),
-                      radius: 16000.0,
-                      resultCount: 10,
-                    );
-
-                    if ((_model.placesResultCopy?.succeeded ?? true) == true) {
-                      _model.rawStations = getJsonField(
-                        (_model.placesResultCopy?.jsonBody ?? ''),
-                        r'''$.places''',
-                        true,
-                      )!
-                          .toList()
-                          .cast<dynamic>();
-                      for (int loop1Index = 0;
-                          loop1Index <= _model.rawStations.length;
-                          loop1Index++) {
-                        final currentLoop1Item = _model.rawStations[loop1Index];
-                        _model.apiResultLatLng = await GoogleGeocodingCall.call(
-                          addressString: getJsonField(
-                            currentLoop1Item,
-                            r'''$.formattedAddress''',
-                          ).toString(),
-                        );
-
-                        if ((_model.apiResultLatLng?.succeeded ?? true) ==
-                            true) {
-                          _model.addToStationCoord(functions.convertToLatLng(
-                              getJsonField(
-                                (_model.apiResultLatLng?.jsonBody ?? ''),
-                                r'''$.results[0].geometry.location.lat''',
-                              ),
-                              getJsonField(
-                                (_model.apiResultLatLng?.jsonBody ?? ''),
-                                r'''$.results[0].geometry.location.lng''',
-                              ))!);
-                          safeSetState(() {});
-                          await Future.delayed(
-                            Duration(
-                              milliseconds: 100,
-                            ),
-                          );
-                        }
-                      }
-                      _model.stationCoord =
-                          _model.stationLatLngs.toList().cast<LatLng>();
-                      safeSetState(() {});
+                Align(
+                  alignment: AlignmentDirectional(0.0, 0.0),
+                  child: FFButtonWidget(
+                    onPressed: () async {
                       logFirebaseEvent(
-                        'gas_search_success',
-                        parameters: {
-                          'station_count': _model.rawStations.length,
-                          'user_status': currentUserDocument?.createdTime,
-                        },
-                      );
-                    }
+                          'NEARBY_MAP_SEARCH_PAGE_BUTTON_BTN_ON_TAP');
+                      logFirebaseEvent('Button_update_page_state');
 
-                    safeSetState(() {});
-                  },
-                  text: 'Button',
-                  options: FFButtonOptions(
-                    height: 40.0,
-                    padding:
-                        EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
-                    iconPadding:
-                        EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                    color: FlutterFlowTheme.of(context).primary,
-                    textStyle: FlutterFlowTheme.of(context).titleSmall.override(
-                          font: GoogleFonts.glory(
-                            fontWeight: FlutterFlowTheme.of(context)
-                                .titleSmall
-                                .fontWeight,
-                            fontStyle: FlutterFlowTheme.of(context)
-                                .titleSmall
-                                .fontStyle,
-                          ),
-                          color: Colors.white,
-                          letterSpacing: 0.0,
-                          fontWeight: FlutterFlowTheme.of(context)
-                              .titleSmall
-                              .fontWeight,
-                          fontStyle:
-                              FlutterFlowTheme.of(context).titleSmall.fontStyle,
-                        ),
-                    elevation: 0.0,
-                    borderRadius: BorderRadius.circular(8.0),
+                      safeSetState(() {});
+                      logFirebaseEvent('Button_backend_call');
+                      _model.placesResultCopy =
+                          await GoogleMapsSearchNearbyCall.call(
+                        lat: functions
+                            .currLocationToLat(_model.placePickerValue.latLng),
+                        lng: functions
+                            .currLocationtoLng(_model.placePickerValue.latLng),
+                        radius: 16000.0,
+                        resultCount: 10,
+                      );
+
+                      logFirebaseEvent('Button_update_page_state');
+                      _model.t1 = _model.t1! + 1;
+                      safeSetState(() {});
+                      if ((_model.placesResultCopy?.succeeded ?? true) ==
+                          true) {
+                        logFirebaseEvent('Button_google_analytics_event');
+                        logFirebaseEvent(
+                          'gas_search_success',
+                          parameters: {
+                            'station_count': _model.rawStations.length,
+                            'user_status': currentUserDocument?.createdTime,
+                          },
+                        );
+                        logFirebaseEvent('Button_update_page_state');
+                        _model.rawStations = getJsonField(
+                          (_model.placesResultCopy?.jsonBody ?? ''),
+                          r'''$.places''',
+                          true,
+                        )!
+                            .toList()
+                            .cast<dynamic>();
+                        for (int loop1Index = 0;
+                            loop1Index <= _model.rawStations.length;
+                            loop1Index++) {
+                          final currentLoop1Item =
+                              _model.rawStations[loop1Index];
+                          logFirebaseEvent('Button_backend_call');
+                          _model.apiResultLatLng =
+                              await GoogleGeocodingCall.call(
+                            addressString: getJsonField(
+                              currentLoop1Item,
+                              r'''$.formattedAddress''',
+                            ).toString(),
+                          );
+
+                          if ((_model.apiResultLatLng?.succeeded ?? true) ==
+                              true) {
+                            logFirebaseEvent('Button_update_page_state');
+                            _model.addToStationCoord(functions.convertToLatLng(
+                                getJsonField(
+                                  (_model.apiResultLatLng?.jsonBody ?? ''),
+                                  r'''$.results[0].geometry.location.lat''',
+                                ),
+                                getJsonField(
+                                  (_model.apiResultLatLng?.jsonBody ?? ''),
+                                  r'''$.results[0].geometry.location.lng''',
+                                ))!);
+                            safeSetState(() {});
+                            logFirebaseEvent('Button_wait__delay');
+                            await Future.delayed(
+                              Duration(
+                                milliseconds: 100,
+                              ),
+                            );
+                          }
+                        }
+                        logFirebaseEvent('Button_update_page_state');
+                        _model.stationCoord =
+                            _model.stationLatLngs.toList().cast<LatLng>();
+                        safeSetState(() {});
+                      }
+
+                      safeSetState(() {});
+                    },
+                    text: 'Button',
+                    options: FFButtonOptions(
+                      height: 40.0,
+                      padding:
+                          EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
+                      iconPadding:
+                          EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                      color: FlutterFlowTheme.of(context).primary,
+                      textStyle:
+                          FlutterFlowTheme.of(context).titleSmall.override(
+                                font: GoogleFonts.glory(
+                                  fontWeight: FlutterFlowTheme.of(context)
+                                      .titleSmall
+                                      .fontWeight,
+                                  fontStyle: FlutterFlowTheme.of(context)
+                                      .titleSmall
+                                      .fontStyle,
+                                ),
+                                color: Colors.white,
+                                letterSpacing: 0.0,
+                                fontWeight: FlutterFlowTheme.of(context)
+                                    .titleSmall
+                                    .fontWeight,
+                                fontStyle: FlutterFlowTheme.of(context)
+                                    .titleSmall
+                                    .fontStyle,
+                              ),
+                      elevation: 0.0,
+                      borderRadius: BorderRadius.circular(8.0),
+                    ),
                   ),
                 ),
               ],

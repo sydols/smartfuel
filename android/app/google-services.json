@@ -12,7 +12,20 @@
           "package_name": "com.mycompany.smartfuel"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "969437710080-7p8gfok6cajmnooen70a4q7uqt14ikd7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mycompany.smartfuel",
+            "certificate_hash": "9bbb3186b2189ef16d8f272bdab59362c395cbb4"
+          }
+        },
+        {
+          "client_id": "969437710080-e0j1vog7f3jgoia3qje3l5cn4r8onpbm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyDOqjyvLSxTyuJRWuXIulc8pP2WHg2JexU"
@@ -20,7 +33,19 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "969437710080-e0j1vog7f3jgoia3qje3l5cn4r8onpbm.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "969437710080-qrlnqc6gn5t47lampkkjj7jop0fi65o3.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.mycompany.smartfuel"
+              }
+            }
+          ]
         }
       }
     }

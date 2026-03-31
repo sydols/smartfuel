@@ -100,13 +100,13 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               : SettingsWidget(),
         ),
         FFRoute(
-            name: OnRouteSearchWidget.routeName,
-            path: OnRouteSearchWidget.routePath,
+            name: NearbyListSearchWidget.routeName,
+            path: NearbyListSearchWidget.routePath,
             builder: (context, params) => params.isEmpty
-                ? NavBarPage(initialPage: 'onRouteSearch')
+                ? NavBarPage(initialPage: 'NearbyListSearch')
                 : NavBarPage(
-                    initialPage: 'onRouteSearch',
-                    page: OnRouteSearchWidget(),
+                    initialPage: 'NearbyListSearch',
+                    page: NearbyListSearchWidget(),
                   )),
         FFRoute(
           name: SignUpWidget.routeName,
@@ -119,13 +119,13 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           builder: (context, params) => LoginWidget(),
         ),
         FFRoute(
-            name: NearbyListSearchWidget.routeName,
-            path: NearbyListSearchWidget.routePath,
+            name: OnRouteSearchWidget.routeName,
+            path: OnRouteSearchWidget.routePath,
             builder: (context, params) => params.isEmpty
-                ? NavBarPage(initialPage: 'NearbyListSearch')
+                ? NavBarPage(initialPage: 'onRouteSearch')
                 : NavBarPage(
-                    initialPage: 'NearbyListSearch',
-                    page: NearbyListSearchWidget(),
+                    initialPage: 'onRouteSearch',
+                    page: OnRouteSearchWidget(),
                   )),
         FFRoute(
             name: NearbyMapSearchWidget.routeName,

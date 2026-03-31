@@ -4,9 +4,11 @@ import '/components/nps_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import '/custom_code/actions/index.dart' as actions;
 import '/index.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'login_model.dart';
 export 'login_model.dart';
 
@@ -49,6 +51,8 @@ class _LoginWidgetState extends State<LoginWidget> {
 
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();
@@ -431,7 +435,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                         EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 0.0),
                     child: Container(
                       width: double.infinity,
-                      height: 181.1,
+                      height: 242.31,
                       decoration: BoxDecoration(),
                       child: Column(
                         mainAxisSize: MainAxisSize.max,
@@ -439,6 +443,8 @@ class _LoginWidgetState extends State<LoginWidget> {
                         children: [
                           FFButtonWidget(
                             onPressed: () async {
+                              logFirebaseEvent('LOGIN_PAGE_LOGIN_BTN_ON_TAP');
+                              logFirebaseEvent('Button_auth');
                               GoRouter.of(context).prepareAuthEvent();
 
                               final user = await authManager.signInWithEmail(
@@ -449,6 +455,8 @@ class _LoginWidgetState extends State<LoginWidget> {
                               if (user == null) {
                                 return;
                               }
+
+                              logFirebaseEvent('Button_backend_call');
 
                               await currentUserReference!.update({
                                 ...createUsersRecordData(
@@ -463,6 +471,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                               if (valueOrDefault(
                                       currentUserDocument?.loginCount, 0) ==
                                   3) {
+                                logFirebaseEvent('Button_bottom_sheet');
                                 await showModalBottomSheet(
                                   isScrollControlled: true,
                                   backgroundColor: Colors.transparent,
@@ -484,10 +493,14 @@ class _LoginWidgetState extends State<LoginWidget> {
                                   },
                                 ).then((value) => safeSetState(() {}));
 
+                                logFirebaseEvent('Button_navigate_to');
+
                                 context.goNamedAuth(
                                     NearbyListSearchWidget.routeName,
                                     context.mounted);
                               } else {
+                                logFirebaseEvent('Button_navigate_to');
+
                                 context.goNamedAuth(
                                     NearbyListSearchWidget.routeName,
                                     context.mounted);
@@ -552,6 +565,9 @@ class _LoginWidgetState extends State<LoginWidget> {
                           ),
                           FFButtonWidget(
                             onPressed: () async {
+                              logFirebaseEvent('LOGIN_PAGE_SIGN_UP_BTN_ON_TAP');
+                              logFirebaseEvent('Button_navigate_to');
+
                               context.pushNamed(SignUpWidget.routeName);
                             },
                             text: 'Sign Up',
@@ -586,6 +602,80 @@ class _LoginWidgetState extends State<LoginWidget> {
                               elevation: 0.0,
                               borderRadius: BorderRadius.circular(15.0),
                             ),
+                          ),
+                          Builder(
+                            builder: (context) {
+                              if (FFAppState().showGoogleSignIn) {
+                                return FFButtonWidget(
+                                  onPressed: () async {
+                                    logFirebaseEvent(
+                                        'LOGIN_PAGE_LOGIN_WITH_GOOGLE_BTN_ON_TAP');
+                                    logFirebaseEvent('Button_auth');
+                                    GoRouter.of(context).prepareAuthEvent();
+                                    final user = await authManager
+                                        .signInWithGoogle(context);
+                                    if (user == null) {
+                                      return;
+                                    }
+                                    logFirebaseEvent('Button_custom_action');
+                                    await actions.logSignUpSuccess(
+                                      'google',
+                                    );
+                                    logFirebaseEvent('Button_navigate_to');
+
+                                    context.pushNamedAuth(
+                                        NearbyListSearchWidget.routeName,
+                                        context.mounted);
+                                  },
+                                  text: 'Login with Google',
+                                  options: FFButtonOptions(
+                                    width: 147.0,
+                                    height: 45.0,
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        16.0, 0.0, 16.0, 0.0),
+                                    iconPadding: EdgeInsetsDirectional.fromSTEB(
+                                        0.0, 0.0, 0.0, 0.0),
+                                    color:
+                                        FlutterFlowTheme.of(context).tertiary,
+                                    textStyle: FlutterFlowTheme.of(context)
+                                        .titleSmall
+                                        .override(
+                                          font: GoogleFonts.glory(
+                                            fontWeight:
+                                                FlutterFlowTheme.of(context)
+                                                    .titleSmall
+                                                    .fontWeight,
+                                            fontStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .titleSmall
+                                                    .fontStyle,
+                                          ),
+                                          color: Colors.white,
+                                          letterSpacing: 0.0,
+                                          fontWeight:
+                                              FlutterFlowTheme.of(context)
+                                                  .titleSmall
+                                                  .fontWeight,
+                                          fontStyle:
+                                              FlutterFlowTheme.of(context)
+                                                  .titleSmall
+                                                  .fontStyle,
+                                        ),
+                                    elevation: 0.0,
+                                    borderRadius: BorderRadius.circular(15.0),
+                                  ),
+                                );
+                              } else {
+                                return Container(
+                                  width: 0.0,
+                                  height: 0.0,
+                                  decoration: BoxDecoration(
+                                    color: FlutterFlowTheme.of(context)
+                                        .secondaryBackground,
+                                  ),
+                                );
+                              }
+                            },
                           ),
                         ].divide(SizedBox(height: 24.0)),
                       ),

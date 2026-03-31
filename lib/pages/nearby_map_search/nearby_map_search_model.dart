@@ -35,6 +35,8 @@ class NearbyMapSearchModel extends FlutterFlowModel<NearbyMapSearchWidget> {
   void updateStationLatLngsAtIndex(int index, Function(LatLng) updateFn) =>
       stationLatLngs[index] = updateFn(stationLatLngs[index]);
 
+  int? t1 = 0;
+
   ///  State fields for stateful widgets in this page.
 
   // State field(s) for GoogleMap widget.

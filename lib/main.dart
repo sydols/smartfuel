@@ -1,3 +1,4 @@
+import 'package:provider/provider.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
@@ -19,7 +20,15 @@ void main() async {
 
   await initFirebase();
 
-  runApp(MyApp());
+  final appState = FFAppState(); // Initialize FFAppState
+  await appState.initializePersistedState();
+
+  await initializeFirebaseRemoteConfig();
+
+  runApp(ChangeNotifierProvider(
+    create: (context) => appState,
+    child: MyApp(),
+  ));
 }
 
 class MyApp extends StatefulWidget {
@@ -142,10 +151,10 @@ class _NavBarPageState extends State<NavBarPage> {
   @override
   Widget build(BuildContext context) {
     final tabs = {
-      'settings': SettingsWidget(),
-      'onRouteSearch': OnRouteSearchWidget(),
-      'NearbyListSearch': NearbyListSearchWidget(),
       'NearbyMapSearch': NearbyMapSearchWidget(),
+      'NearbyListSearch': NearbyListSearchWidget(),
+      'onRouteSearch': OnRouteSearchWidget(),
+      'settings': SettingsWidget(),
     };
     final currentIndex = tabs.keys.toList().indexOf(_currentPageName);
 
@@ -167,18 +176,10 @@ class _NavBarPageState extends State<NavBarPage> {
         items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(
-              Icons.settings_sharp,
+              Icons.pin_drop_sharp,
               size: 24.0,
             ),
-            label: 'settings',
-            tooltip: '',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.route,
-              size: 24.0,
-            ),
-            label: 'onRouteSearch',
+            label: 'NearbyMapSearch',
             tooltip: '',
           ),
           BottomNavigationBarItem(
@@ -191,10 +192,18 @@ class _NavBarPageState extends State<NavBarPage> {
           ),
           BottomNavigationBarItem(
             icon: Icon(
-              Icons.pin_drop_sharp,
+              Icons.route,
               size: 24.0,
             ),
-            label: 'NearbyMapSearch',
+            label: 'onRouteSearch',
+            tooltip: '',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(
+              Icons.settings_sharp,
+              size: 24.0,
+            ),
+            label: 'settings',
             tooltip: '',
           )
         ],

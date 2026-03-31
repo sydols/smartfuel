@@ -482,6 +482,10 @@ class _AboutYouWidgetState extends State<AboutYouWidget> {
                         children: [
                           FFButtonWidget(
                             onPressed: () async {
+                              logFirebaseEvent(
+                                  'ABOUT_YOU_PAGE_NEXT_BTN_ON_TAP');
+                              logFirebaseEvent('Button_backend_call');
+
                               await currentUserReference!
                                   .update(createUsersRecordData(
                                 name: _model.enterNameTextController.text,
@@ -489,6 +493,7 @@ class _AboutYouWidgetState extends State<AboutYouWidget> {
                                 mpg: int.tryParse(
                                     _model.enterMpgTextController.text),
                               ));
+                              logFirebaseEvent('Button_navigate_to');
 
                               context
                                   .pushNamed(NearbyMapSearchWidget.routeName);

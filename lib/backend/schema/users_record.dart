@@ -75,6 +75,21 @@ class UsersRecord extends FirestoreRecord {
   DateTime? get loginTime => _loginTime;
   bool hasLoginTime() => _loginTime != null;
 
+  // "map_Generated" field.
+  int? _mapGenerated;
+  int get mapGenerated => _mapGenerated ?? 0;
+  bool hasMapGenerated() => _mapGenerated != null;
+
+  // "screen_Viewed" field.
+  int? _screenViewed;
+  int get screenViewed => _screenViewed ?? 0;
+  bool hasScreenViewed() => _screenViewed != null;
+
+  // "routes_Planned" field.
+  int? _routesPlanned;
+  int get routesPlanned => _routesPlanned ?? 0;
+  bool hasRoutesPlanned() => _routesPlanned != null;
+
   void _initializeFields() {
     _name = snapshotData['name'] as String?;
     _photoUrl = snapshotData['photo_url'] as String?;
@@ -88,6 +103,9 @@ class UsersRecord extends FirestoreRecord {
     _rating = castToType<int>(snapshotData['rating']);
     _loginCount = castToType<int>(snapshotData['login_count']);
     _loginTime = snapshotData['login_time'] as DateTime?;
+    _mapGenerated = castToType<int>(snapshotData['map_Generated']);
+    _screenViewed = castToType<int>(snapshotData['screen_Viewed']);
+    _routesPlanned = castToType<int>(snapshotData['routes_Planned']);
   }
 
   static CollectionReference get collection =>
@@ -136,6 +154,9 @@ Map<String, dynamic> createUsersRecordData({
   int? rating,
   int? loginCount,
   DateTime? loginTime,
+  int? mapGenerated,
+  int? screenViewed,
+  int? routesPlanned,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -151,6 +172,9 @@ Map<String, dynamic> createUsersRecordData({
       'rating': rating,
       'login_count': loginCount,
       'login_time': loginTime,
+      'map_Generated': mapGenerated,
+      'screen_Viewed': screenViewed,
+      'routes_Planned': routesPlanned,
     }.withoutNulls,
   );
 
@@ -173,7 +197,10 @@ class UsersRecordDocumentEquality implements Equality<UsersRecord> {
         e1?.mpg == e2?.mpg &&
         e1?.rating == e2?.rating &&
         e1?.loginCount == e2?.loginCount &&
-        e1?.loginTime == e2?.loginTime;
+        e1?.loginTime == e2?.loginTime &&
+        e1?.mapGenerated == e2?.mapGenerated &&
+        e1?.screenViewed == e2?.screenViewed &&
+        e1?.routesPlanned == e2?.routesPlanned;
   }
 
   @override
@@ -189,7 +216,10 @@ class UsersRecordDocumentEquality implements Equality<UsersRecord> {
         e?.mpg,
         e?.rating,
         e?.loginCount,
-        e?.loginTime
+        e?.loginTime,
+        e?.mapGenerated,
+        e?.screenViewed,
+        e?.routesPlanned
       ]);
 
   @override

@@ -3,9 +3,11 @@ import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import '/custom_code/actions/index.dart' as actions;
 import '/index.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'sign_up_model.dart';
 export 'sign_up_model.dart';
 
@@ -51,6 +53,8 @@ class _SignUpWidgetState extends State<SignUpWidget> {
 
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();
@@ -626,7 +630,7 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                         EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 0.0),
                     child: Container(
                       width: double.infinity,
-                      height: 181.1,
+                      height: 242.3,
                       decoration: BoxDecoration(),
                       child: Column(
                         mainAxisSize: MainAxisSize.max,
@@ -634,10 +638,14 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                         children: [
                           FFButtonWidget(
                             onPressed: () async {
+                              logFirebaseEvent(
+                                  'SIGN_UP_PAGE_SIGN_UP_BTN_ON_TAP');
+                              logFirebaseEvent('Button_validate_form');
                               if (_model.formKey.currentState == null ||
                                   !_model.formKey.currentState!.validate()) {
                                 return;
                               }
+                              logFirebaseEvent('Button_auth');
                               GoRouter.of(context).prepareAuthEvent();
                               if (_model.enterPassTextController.text !=
                                   _model.reEnterPassTextController.text) {
@@ -675,10 +683,13 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                                 ),
                               });
 
+                              logFirebaseEvent('Button_backend_call');
+
                               await currentUserReference!
                                   .update(createUsersRecordData(
                                 loginTime: getCurrentTimestamp,
                               ));
+                              logFirebaseEvent('Button_navigate_to');
 
                               context.pushNamedAuth(
                                   AboutYouWidget.routeName, context.mounted);
@@ -740,6 +751,9 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                           ),
                           FFButtonWidget(
                             onPressed: () async {
+                              logFirebaseEvent('SIGN_UP_PAGE_LOGIN_BTN_ON_TAP');
+                              logFirebaseEvent('Button_navigate_to');
+
                               context.pushNamed(LoginWidget.routeName);
                             },
                             text: 'Login',
@@ -774,6 +788,81 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                               elevation: 0.0,
                               borderRadius: BorderRadius.circular(15.0),
                             ),
+                          ),
+                          Builder(
+                            builder: (context) {
+                              if (FFAppState().showGoogleSignIn) {
+                                return FFButtonWidget(
+                                  onPressed: () async {
+                                    logFirebaseEvent(
+                                        'SIGN_UP_SIGN_UP_WITH_GOOGLE_BTN_ON_TAP');
+                                    logFirebaseEvent('Button_auth');
+                                    GoRouter.of(context).prepareAuthEvent();
+                                    final user = await authManager
+                                        .signInWithGoogle(context);
+                                    if (user == null) {
+                                      return;
+                                    }
+                                    logFirebaseEvent('Button_custom_action');
+                                    await actions.logSignUpSuccess(
+                                      'google',
+                                    );
+                                    logFirebaseEvent('Button_navigate_to');
+
+                                    context.pushNamedAuth(
+                                        AboutYouWidget.routeName,
+                                        context.mounted);
+                                  },
+                                  text: 'Sign Up with Google',
+                                  options: FFButtonOptions(
+                                    width: 147.0,
+                                    height: 45.0,
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        16.0, 0.0, 16.0, 0.0),
+                                    iconPadding: EdgeInsetsDirectional.fromSTEB(
+                                        0.0, 0.0, 0.0, 0.0),
+                                    color:
+                                        FlutterFlowTheme.of(context).tertiary,
+                                    textStyle: FlutterFlowTheme.of(context)
+                                        .titleSmall
+                                        .override(
+                                          font: GoogleFonts.glory(
+                                            fontWeight:
+                                                FlutterFlowTheme.of(context)
+                                                    .titleSmall
+                                                    .fontWeight,
+                                            fontStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .titleSmall
+                                                    .fontStyle,
+                                          ),
+                                          color: Colors.white,
+                                          fontSize: 14.0,
+                                          letterSpacing: 0.0,
+                                          fontWeight:
+                                              FlutterFlowTheme.of(context)
+                                                  .titleSmall
+                                                  .fontWeight,
+                                          fontStyle:
+                                              FlutterFlowTheme.of(context)
+                                                  .titleSmall
+                                                  .fontStyle,
+                                        ),
+                                    elevation: 0.0,
+                                    borderRadius: BorderRadius.circular(15.0),
+                                  ),
+                                );
+                              } else {
+                                return Container(
+                                  width: 0.0,
+                                  height: 0.0,
+                                  decoration: BoxDecoration(
+                                    color: FlutterFlowTheme.of(context)
+                                        .secondaryBackground,
+                                  ),
+                                );
+                              }
+                            },
                           ),
                         ].divide(SizedBox(height: 24.0)),
                       ),

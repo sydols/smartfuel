@@ -628,6 +628,9 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                   ),
                   FFButtonWidget(
                     onPressed: () async {
+                      logFirebaseEvent('SETTINGS_PAGE_SAVE_CHANGES_BTN_ON_TAP');
+                      logFirebaseEvent('Button_backend_call');
+
                       await currentUserReference!.update(createUsersRecordData(
                         email: _model.emailTextController.text,
                         name: _model.nameTextController.text,
@@ -671,6 +674,8 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                     padding: EdgeInsets.all(12.0),
                     child: FFButtonWidget(
                       onPressed: () async {
+                        logFirebaseEvent('SETTINGS_PAGE_logoutButton_ON_TAP');
+                        logFirebaseEvent('logoutButton_auth');
                         GoRouter.of(context).prepareAuthEvent();
                         await authManager.signOut();
                         GoRouter.of(context).clearRedirectLocation();

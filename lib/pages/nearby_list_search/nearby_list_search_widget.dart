@@ -53,27 +53,34 @@ class _NearbyListSearchWidgetState extends State<NearbyListSearchWidget> {
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
         body: SafeArea(
           top: true,
-          child: SingleChildScrollView(
-            child: Column(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 24.0, 0.0, 0.0),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Padding(
-                        padding:
-                            EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 12.0, 0.0),
-                        child: Text(
-                          'SmartFuel',
-                          style: FlutterFlowTheme.of(context)
-                              .displayLarge
-                              .override(
-                                font: GoogleFonts.glory(
+          child: Column(
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Padding(
+                padding: EdgeInsetsDirectional.fromSTEB(0.0, 24.0, 0.0, 0.0),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding:
+                          EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 12.0, 0.0),
+                      child: Text(
+                        'SmartFuel',
+                        style:
+                            FlutterFlowTheme.of(context).displayLarge.override(
+                                  font: GoogleFonts.glory(
+                                    fontWeight: FlutterFlowTheme.of(context)
+                                        .displayLarge
+                                        .fontWeight,
+                                    fontStyle: FlutterFlowTheme.of(context)
+                                        .displayLarge
+                                        .fontStyle,
+                                  ),
+                                  color: FlutterFlowTheme.of(context).primary,
+                                  letterSpacing: 0.0,
                                   fontWeight: FlutterFlowTheme.of(context)
                                       .displayLarge
                                       .fontWeight,
@@ -81,45 +88,27 @@ class _NearbyListSearchWidgetState extends State<NearbyListSearchWidget> {
                                       .displayLarge
                                       .fontStyle,
                                 ),
-                                color: FlutterFlowTheme.of(context).primary,
-                                letterSpacing: 0.0,
-                                fontWeight: FlutterFlowTheme.of(context)
-                                    .displayLarge
-                                    .fontWeight,
-                                fontStyle: FlutterFlowTheme.of(context)
-                                    .displayLarge
-                                    .fontStyle,
-                              ),
-                        ),
                       ),
-                      ClipRRect(
-                        borderRadius: BorderRadius.circular(8.0),
-                        child: Image.asset(
-                          'assets/images/Screenshot_2026-03-09_at_1.51_Background_Removed.13_PM.png',
-                          width: 75.0,
-                          height: 75.0,
-                          fit: BoxFit.cover,
-                        ),
+                    ),
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(8.0),
+                      child: Image.asset(
+                        'assets/images/Screenshot_2026-03-09_at_1.51_Background_Removed.13_PM.png',
+                        width: 75.0,
+                        height: 75.0,
+                        fit: BoxFit.cover,
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
-                Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(24.0, 24.0, 0.0, 0.0),
-                  child: Text(
-                    'Stations Near You',
-                    textAlign: TextAlign.start,
-                    style: FlutterFlowTheme.of(context).displayMedium.override(
-                          font: GoogleFonts.glory(
-                            fontWeight: FlutterFlowTheme.of(context)
-                                .displayMedium
-                                .fontWeight,
-                            fontStyle: FlutterFlowTheme.of(context)
-                                .displayMedium
-                                .fontStyle,
-                          ),
-                          color: FlutterFlowTheme.of(context).secondary,
-                          letterSpacing: 0.0,
+              ),
+              Padding(
+                padding: EdgeInsetsDirectional.fromSTEB(24.0, 24.0, 0.0, 0.0),
+                child: Text(
+                  'Stations Near You',
+                  textAlign: TextAlign.start,
+                  style: FlutterFlowTheme.of(context).displayMedium.override(
+                        font: GoogleFonts.glory(
                           fontWeight: FlutterFlowTheme.of(context)
                               .displayMedium
                               .fontWeight,
@@ -127,157 +116,221 @@ class _NearbyListSearchWidgetState extends State<NearbyListSearchWidget> {
                               .displayMedium
                               .fontStyle,
                         ),
-                  ),
+                        color: FlutterFlowTheme.of(context).secondary,
+                        letterSpacing: 0.0,
+                        fontWeight: FlutterFlowTheme.of(context)
+                            .displayMedium
+                            .fontWeight,
+                        fontStyle: FlutterFlowTheme.of(context)
+                            .displayMedium
+                            .fontStyle,
+                      ),
                 ),
-                Expanded(
-                  child: Column(
-                    mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Expanded(
-                        child: Container(
-                          height: 100.0,
-                          decoration: BoxDecoration(),
-                          child: Padding(
-                            padding: EdgeInsets.all(12.0),
-                            child: Builder(
-                              builder: (context) {
-                                final stationItem =
-                                    _model.finalStationsList.toList();
+              ),
+              Expanded(
+                child: Column(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Expanded(
+                      child: Container(
+                        height: 400.0,
+                        decoration: BoxDecoration(),
+                        child: Padding(
+                          padding: EdgeInsets.all(12.0),
+                          child: Builder(
+                            builder: (context) {
+                              final stationItem =
+                                  _model.finalStationsList.toList();
 
-                                return ListView.separated(
-                                  padding: EdgeInsets.zero,
-                                  primary: false,
-                                  scrollDirection: Axis.vertical,
-                                  itemCount: stationItem.length,
-                                  separatorBuilder: (_, __) =>
-                                      SizedBox(height: 12.0),
-                                  itemBuilder: (context, stationItemIndex) {
-                                    final stationItemItem =
-                                        stationItem[stationItemIndex];
-                                    return InkWell(
-                                      splashColor: Colors.transparent,
-                                      focusColor: Colors.transparent,
-                                      hoverColor: Colors.transparent,
-                                      highlightColor: Colors.transparent,
-                                      onTap: () async {
-                                        _model.apiResultglv =
-                                            await GoogleGeocodingCall.call(
-                                          addressString: getJsonField(
-                                            stationItemItem,
-                                            r'''$.formattedAddress''',
-                                          ).toString(),
-                                        );
+                              return ListView.separated(
+                                padding: EdgeInsets.zero,
+                                primary: false,
+                                scrollDirection: Axis.vertical,
+                                itemCount: stationItem.length,
+                                separatorBuilder: (_, __) =>
+                                    SizedBox(height: 12.0),
+                                itemBuilder: (context, stationItemIndex) {
+                                  final stationItemItem =
+                                      stationItem[stationItemIndex];
+                                  return InkWell(
+                                    splashColor: Colors.transparent,
+                                    focusColor: Colors.transparent,
+                                    hoverColor: Colors.transparent,
+                                    highlightColor: Colors.transparent,
+                                    onTap: () async {
+                                      logFirebaseEvent(
+                                          'NEARBY_LIST_SEARCH_Container_shgud9ym_ON');
+                                      logFirebaseEvent(
+                                          'Container_backend_call');
+                                      _model.apiResultglv =
+                                          await GoogleGeocodingCall.call(
+                                        addressString: getJsonField(
+                                          stationItemItem,
+                                          r'''$.formattedAddress''',
+                                        ).toString(),
+                                      );
 
-                                        if ((_model.apiResultglv?.succeeded ??
-                                                true) ==
-                                            true) {
-                                          await launchURL(
-                                              'https://www.google.com/maps/dir/?api=1&origin=${_model.placePickerStartValue.address}&destination=${getJsonField(
-                                            stationItemItem,
-                                            r'''$.lat''',
-                                          ).toString()},${getJsonField(
-                                            stationItemItem,
-                                            r'''$.lng''',
-                                          ).toString()}');
-                                        } else {
-                                          ScaffoldMessenger.of(context)
-                                              .showSnackBar(
-                                            SnackBar(
-                                              content: Text(
-                                                'Error retrieving locations',
-                                                style: TextStyle(
-                                                  color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .secondaryBackground,
-                                                ),
+                                      if ((_model.apiResultglv?.succeeded ??
+                                              true) ==
+                                          true) {
+                                        logFirebaseEvent(
+                                            'Container_launch_u_r_l');
+                                        await launchURL(
+                                            'https://www.google.com/maps/dir/?api=1&origin=${_model.placePickerStartValue.address}&destination=${getJsonField(
+                                          stationItemItem,
+                                          r'''$.lat''',
+                                        ).toString()},${getJsonField(
+                                          stationItemItem,
+                                          r'''$.lng''',
+                                        ).toString()}');
+                                      } else {
+                                        logFirebaseEvent(
+                                            'Container_show_snack_bar');
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(
+                                          SnackBar(
+                                            content: Text(
+                                              'Error retrieving locations',
+                                              style: TextStyle(
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .secondaryBackground,
                                               ),
-                                              duration:
-                                                  Duration(milliseconds: 4000),
-                                              backgroundColor:
-                                                  FlutterFlowTheme.of(context)
-                                                      .alternate,
                                             ),
-                                          );
-                                        }
+                                            duration:
+                                                Duration(milliseconds: 4000),
+                                            backgroundColor:
+                                                FlutterFlowTheme.of(context)
+                                                    .alternate,
+                                          ),
+                                        );
+                                      }
 
-                                        safeSetState(() {});
-                                      },
-                                      child: Container(
-                                        width: double.infinity,
-                                        height: 100.0,
-                                        decoration: BoxDecoration(
-                                          color: FlutterFlowTheme.of(context)
-                                              .secondaryBackground,
-                                          boxShadow: [
-                                            BoxShadow(
-                                              blurRadius: 4.0,
-                                              color: Color(0x33000000),
-                                              offset: Offset(
-                                                0.0,
-                                                2.0,
-                                              ),
-                                            )
-                                          ],
-                                          borderRadius:
-                                              BorderRadius.circular(12.0),
-                                        ),
-                                        child: Padding(
-                                          padding: EdgeInsets.all(12.0),
-                                          child: Column(
-                                            mainAxisSize: MainAxisSize.max,
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceEvenly,
-                                            children: [
-                                              Row(
-                                                mainAxisSize: MainAxisSize.max,
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceBetween,
-                                                children: [
-                                                  Expanded(
-                                                    child: Text(
-                                                      getJsonField(
-                                                        stationItemItem,
-                                                        r'''$.name''',
-                                                      ).toString(),
-                                                      style:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .labelLarge
-                                                              .override(
-                                                                font:
-                                                                    GoogleFonts
-                                                                        .glory(
-                                                                  fontWeight: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .labelLarge
-                                                                      .fontWeight,
-                                                                  fontStyle: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .labelLarge
-                                                                      .fontStyle,
-                                                                ),
-                                                                color: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .primary,
-                                                                letterSpacing:
-                                                                    0.0,
-                                                                fontWeight: FlutterFlowTheme.of(
+                                      safeSetState(() {});
+                                    },
+                                    child: Container(
+                                      width: double.infinity,
+                                      height: 100.0,
+                                      decoration: BoxDecoration(
+                                        color: FlutterFlowTheme.of(context)
+                                            .secondaryBackground,
+                                        boxShadow: [
+                                          BoxShadow(
+                                            blurRadius: 4.0,
+                                            color: Color(0x33000000),
+                                            offset: Offset(
+                                              0.0,
+                                              2.0,
+                                            ),
+                                          )
+                                        ],
+                                        borderRadius:
+                                            BorderRadius.circular(12.0),
+                                      ),
+                                      child: Padding(
+                                        padding: EdgeInsets.all(12.0),
+                                        child: Column(
+                                          mainAxisSize: MainAxisSize.max,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceEvenly,
+                                          children: [
+                                            Row(
+                                              mainAxisSize: MainAxisSize.max,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                Expanded(
+                                                  child: Text(
+                                                    getJsonField(
+                                                      stationItemItem,
+                                                      r'''$.name''',
+                                                    ).toString(),
+                                                    style: FlutterFlowTheme.of(
+                                                            context)
+                                                        .labelLarge
+                                                        .override(
+                                                          font:
+                                                              GoogleFonts.glory(
+                                                            fontWeight:
+                                                                FlutterFlowTheme.of(
                                                                         context)
                                                                     .labelLarge
                                                                     .fontWeight,
-                                                                fontStyle: FlutterFlowTheme.of(
+                                                            fontStyle:
+                                                                FlutterFlowTheme.of(
                                                                         context)
                                                                     .labelLarge
                                                                     .fontStyle,
-                                                              ),
-                                                      overflow:
-                                                          TextOverflow.ellipsis,
-                                                    ),
+                                                          ),
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .primary,
+                                                          letterSpacing: 0.0,
+                                                          fontWeight:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .labelLarge
+                                                                  .fontWeight,
+                                                          fontStyle:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .labelLarge
+                                                                  .fontStyle,
+                                                        ),
+                                                    overflow:
+                                                        TextOverflow.ellipsis,
                                                   ),
-                                                  Text(
-                                                    '\$',
+                                                ),
+                                                Text(
+                                                  '\$',
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
+                                                      .labelMedium
+                                                      .override(
+                                                        font: GoogleFonts.glory(
+                                                          fontWeight:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .labelMedium
+                                                                  .fontWeight,
+                                                          fontStyle:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .labelMedium
+                                                                  .fontStyle,
+                                                        ),
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .secondary,
+                                                        letterSpacing: 0.0,
+                                                        fontWeight:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .labelMedium
+                                                                .fontWeight,
+                                                        fontStyle:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .labelMedium
+                                                                .fontStyle,
+                                                      ),
+                                                ),
+                                              ],
+                                            ),
+                                            Row(
+                                              mainAxisSize: MainAxisSize.max,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.end,
+                                              children: [
+                                                Expanded(
+                                                  child: Text(
+                                                    getJsonField(
+                                                      stationItemItem,
+                                                      r'''$.address''',
+                                                    ).toString(),
                                                     style: FlutterFlowTheme.of(
                                                             context)
                                                         .labelMedium
@@ -297,7 +350,7 @@ class _NearbyListSearchWidgetState extends State<NearbyListSearchWidget> {
                                                           ),
                                                           color: FlutterFlowTheme
                                                                   .of(context)
-                                                              .secondary,
+                                                              .tertiary,
                                                           letterSpacing: 0.0,
                                                           fontWeight:
                                                               FlutterFlowTheme.of(
@@ -310,129 +363,92 @@ class _NearbyListSearchWidgetState extends State<NearbyListSearchWidget> {
                                                                   .labelMedium
                                                                   .fontStyle,
                                                         ),
+                                                    overflow:
+                                                        TextOverflow.ellipsis,
                                                   ),
-                                                ],
-                                              ),
-                                              Row(
-                                                mainAxisSize: MainAxisSize.max,
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.end,
-                                                children: [
-                                                  Expanded(
-                                                    child: Text(
-                                                      getJsonField(
-                                                        stationItemItem,
-                                                        r'''$.address''',
-                                                      ).toString(),
-                                                      style:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .labelMedium
-                                                              .override(
-                                                                font:
-                                                                    GoogleFonts
-                                                                        .glory(
-                                                                  fontWeight: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .labelMedium
-                                                                      .fontWeight,
-                                                                  fontStyle: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .labelMedium
-                                                                      .fontStyle,
-                                                                ),
-                                                                color: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .tertiary,
-                                                                letterSpacing:
-                                                                    0.0,
-                                                                fontWeight: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .labelMedium
-                                                                    .fontWeight,
-                                                                fontStyle: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .labelMedium
-                                                                    .fontStyle,
-                                                              ),
-                                                      overflow:
-                                                          TextOverflow.ellipsis,
-                                                    ),
-                                                  ),
-                                                  Align(
-                                                    alignment:
-                                                        AlignmentDirectional(
-                                                            1.0, 1.0),
-                                                    child: Text(
-                                                      '${getJsonField(
-                                                        stationItemItem,
-                                                        r'''$.distance''',
-                                                      ).toString()} mi',
-                                                      style:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .bodyMedium
-                                                              .override(
-                                                                font:
-                                                                    GoogleFonts
-                                                                        .glory(
-                                                                  fontWeight: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .bodyMedium
-                                                                      .fontWeight,
-                                                                  fontStyle: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .bodyMedium
-                                                                      .fontStyle,
-                                                                ),
-                                                                letterSpacing:
-                                                                    0.0,
-                                                                fontWeight: FlutterFlowTheme.of(
+                                                ),
+                                                Align(
+                                                  alignment:
+                                                      AlignmentDirectional(
+                                                          1.0, 1.0),
+                                                  child: Text(
+                                                    '${getJsonField(
+                                                      stationItemItem,
+                                                      r'''$.distance''',
+                                                    ).toString()} mi',
+                                                    style: FlutterFlowTheme.of(
+                                                            context)
+                                                        .bodyMedium
+                                                        .override(
+                                                          font:
+                                                              GoogleFonts.glory(
+                                                            fontWeight:
+                                                                FlutterFlowTheme.of(
                                                                         context)
                                                                     .bodyMedium
                                                                     .fontWeight,
-                                                                fontStyle: FlutterFlowTheme.of(
+                                                            fontStyle:
+                                                                FlutterFlowTheme.of(
                                                                         context)
                                                                     .bodyMedium
                                                                     .fontStyle,
-                                                              ),
-                                                    ),
+                                                          ),
+                                                          letterSpacing: 0.0,
+                                                          fontWeight:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .bodyMedium
+                                                                  .fontWeight,
+                                                          fontStyle:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .bodyMedium
+                                                                  .fontStyle,
+                                                        ),
                                                   ),
-                                                ],
-                                              ),
-                                            ],
-                                          ),
+                                                ),
+                                              ],
+                                            ),
+                                          ],
                                         ),
                                       ),
-                                    );
-                                  },
-                                );
-                              },
-                            ),
+                                    ),
+                                  );
+                                },
+                              );
+                            },
                           ),
                         ),
                       ),
-                      FlutterFlowPlacePicker(
-                        iOSGoogleMapsApiKey:
-                            'AIzaSyApoT7jBvPSLIYoGDjBGQ2lZVrJFqrhh1k',
-                        androidGoogleMapsApiKey:
-                            'AIzaSyApoT7jBvPSLIYoGDjBGQ2lZVrJFqrhh1k',
-                        webGoogleMapsApiKey:
-                            'AIzaSyApoT7jBvPSLIYoGDjBGQ2lZVrJFqrhh1k',
-                        onSelect: (place) async {
-                          safeSetState(
-                              () => _model.placePickerStartValue = place);
-                        },
-                        defaultText: 'Where are you starting?',
-                        buttonOptions: FFButtonOptions(
-                          width: double.infinity,
-                          height: 50.0,
-                          color:
-                              FlutterFlowTheme.of(context).secondaryBackground,
-                          textStyle: FlutterFlowTheme.of(context)
-                              .labelMedium
-                              .override(
-                                font: GoogleFonts.glory(
+                    ),
+                    FlutterFlowPlacePicker(
+                      iOSGoogleMapsApiKey:
+                          'AIzaSyApoT7jBvPSLIYoGDjBGQ2lZVrJFqrhh1k',
+                      androidGoogleMapsApiKey:
+                          'AIzaSyApoT7jBvPSLIYoGDjBGQ2lZVrJFqrhh1k',
+                      webGoogleMapsApiKey:
+                          'AIzaSyApoT7jBvPSLIYoGDjBGQ2lZVrJFqrhh1k',
+                      onSelect: (place) async {
+                        safeSetState(
+                            () => _model.placePickerStartValue = place);
+                      },
+                      defaultText: 'Where are you starting?',
+                      buttonOptions: FFButtonOptions(
+                        width: double.infinity,
+                        height: 50.0,
+                        color: FlutterFlowTheme.of(context).secondaryBackground,
+                        textStyle:
+                            FlutterFlowTheme.of(context).labelMedium.override(
+                                  font: GoogleFonts.glory(
+                                    fontWeight: FlutterFlowTheme.of(context)
+                                        .labelMedium
+                                        .fontWeight,
+                                    fontStyle: FlutterFlowTheme.of(context)
+                                        .labelMedium
+                                        .fontStyle,
+                                  ),
+                                  color: FlutterFlowTheme.of(context).tertiary,
+                                  letterSpacing: 0.0,
                                   fontWeight: FlutterFlowTheme.of(context)
                                       .labelMedium
                                       .fontWeight,
@@ -440,137 +456,141 @@ class _NearbyListSearchWidgetState extends State<NearbyListSearchWidget> {
                                       .labelMedium
                                       .fontStyle,
                                 ),
-                                color: FlutterFlowTheme.of(context).tertiary,
-                                letterSpacing: 0.0,
-                                fontWeight: FlutterFlowTheme.of(context)
-                                    .labelMedium
-                                    .fontWeight,
-                                fontStyle: FlutterFlowTheme.of(context)
-                                    .labelMedium
-                                    .fontStyle,
-                              ),
-                          elevation: 0.0,
-                          borderSide: BorderSide(
-                            color: Colors.transparent,
-                            width: 1.0,
-                          ),
-                          borderRadius: BorderRadius.circular(8.0),
+                        elevation: 0.0,
+                        borderSide: BorderSide(
+                          color: Colors.transparent,
+                          width: 1.0,
                         ),
+                        borderRadius: BorderRadius.circular(8.0),
                       ),
-                      Padding(
-                        padding: EdgeInsets.all(6.0),
-                        child: FFButtonWidget(
-                          onPressed: () async {
-                            _model.apiResultNearby =
-                                await GoogleMapsSearchNearbyCall.call(
-                              lat: functions.currLocationToLat(
-                                  _model.placePickerStartValue.latLng),
-                              lng: functions.currLocationtoLng(
-                                  _model.placePickerStartValue.latLng),
-                              radius: 16000.0,
-                              resultCount: 10,
-                            );
+                    ),
+                    Padding(
+                      padding: EdgeInsets.all(6.0),
+                      child: FFButtonWidget(
+                        onPressed: () async {
+                          logFirebaseEvent(
+                              'NEARBY_LIST_SEARCH_FIND_STATIONS_NEARBY_');
+                          logFirebaseEvent('Button_backend_call');
+                          _model.apiResultNearby =
+                              await GoogleMapsSearchNearbyCall.call(
+                            lat: functions.currLocationToLat(
+                                _model.placePickerStartValue.latLng),
+                            lng: functions.currLocationtoLng(
+                                _model.placePickerStartValue.latLng),
+                            radius: 16000.0,
+                            resultCount: 10,
+                          );
 
-                            if ((_model.apiResultNearby?.succeeded ?? true)) {
-                              _model.cleanStations = getJsonField(
-                                (_model.apiResultNearby?.jsonBody ?? ''),
-                                r'''$.places''',
-                                true,
-                              )!
-                                  .toList()
-                                  .cast<dynamic>();
-                              safeSetState(() {});
-                              for (int loop1Index = 0;
-                                  loop1Index < _model.cleanStations.length;
-                                  loop1Index++) {
-                                final currentLoop1Item =
-                                    _model.cleanStations[loop1Index];
-                                _model.apiResultLatLng =
-                                    await GoogleGeocodingCall.call(
-                                  addressString: getJsonField(
-                                    currentLoop1Item,
-                                    r'''$.formattedAddress''',
-                                  ).toString(),
-                                );
-
-                                if ((_model.apiResultLatLng?.succeeded ??
-                                        true) ==
-                                    true) {
-                                  _model.addToFinalStationsList(
-                                      functions.buildStationJson(
-                                          getJsonField(
-                                            currentLoop1Item,
-                                            r'''$.displayName.text''',
-                                          ).toString(),
-                                          getJsonField(
-                                            currentLoop1Item,
-                                            r'''$.formattedAddress''',
-                                          ).toString(),
-                                          getJsonField(
-                                            (_model.apiResultLatLng?.jsonBody ??
-                                                ''),
-                                            r'''$.results[0].geometry.location.lat''',
-                                          ),
-                                          getJsonField(
-                                            (_model.apiResultLatLng?.jsonBody ??
-                                                ''),
-                                            r'''$.results[0].geometry.location.lng''',
-                                          ),
-                                          functions.calculateDistanceInMiles(
-                                              _model
-                                                  .placePickerStartValue.latLng,
-                                              functions.safeBuildLatLng(
-                                                  getJsonField(
-                                                    (_model.apiResultLatLng
-                                                            ?.jsonBody ??
-                                                        ''),
-                                                    r'''$.results[0].geometry.location.lat''',
-                                                  ),
-                                                  getJsonField(
-                                                    (_model.apiResultLatLng
-                                                            ?.jsonBody ??
-                                                        ''),
-                                                    r'''$.results[0].geometry.location.lng''',
-                                                  )))));
-                                  await Future.delayed(
-                                    Duration(
-                                      milliseconds: 100,
-                                    ),
-                                  );
-                                }
-                              }
-                            } else {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(
-                                  content: Text(
-                                    'Error seaching nearby, try again',
-                                    style: TextStyle(
-                                      color: FlutterFlowTheme.of(context)
-                                          .primaryText,
-                                    ),
-                                  ),
-                                  duration: Duration(milliseconds: 4000),
-                                  backgroundColor:
-                                      FlutterFlowTheme.of(context).secondary,
-                                ),
-                              );
-                            }
-
+                          if ((_model.apiResultNearby?.succeeded ?? true)) {
+                            logFirebaseEvent('Button_update_page_state');
+                            _model.cleanStations = getJsonField(
+                              (_model.apiResultNearby?.jsonBody ?? ''),
+                              r'''$.places''',
+                              true,
+                            )!
+                                .toList()
+                                .cast<dynamic>();
                             safeSetState(() {});
-                          },
-                          text: 'Find Stations Nearby',
-                          options: FFButtonOptions(
-                            width: double.infinity,
-                            height: 40.0,
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                16.0, 0.0, 16.0, 0.0),
-                            iconPadding: EdgeInsetsDirectional.fromSTEB(
-                                0.0, 0.0, 0.0, 0.0),
-                            color: FlutterFlowTheme.of(context).primary,
-                            textStyle: FlutterFlowTheme.of(context)
-                                .labelLarge
-                                .override(
-                                  font: GoogleFonts.glory(
+                            for (int loop1Index = 0;
+                                loop1Index < _model.cleanStations.length;
+                                loop1Index++) {
+                              final currentLoop1Item =
+                                  _model.cleanStations[loop1Index];
+                              logFirebaseEvent('Button_backend_call');
+                              _model.apiResultLatLng =
+                                  await GoogleGeocodingCall.call(
+                                addressString: getJsonField(
+                                  currentLoop1Item,
+                                  r'''$.formattedAddress''',
+                                ).toString(),
+                              );
+
+                              if ((_model.apiResultLatLng?.succeeded ?? true) ==
+                                  true) {
+                                logFirebaseEvent('Button_update_page_state');
+                                _model.addToFinalStationsList(
+                                    functions.buildStationJson(
+                                        getJsonField(
+                                          currentLoop1Item,
+                                          r'''$.displayName.text''',
+                                        ).toString(),
+                                        getJsonField(
+                                          currentLoop1Item,
+                                          r'''$.formattedAddress''',
+                                        ).toString(),
+                                        getJsonField(
+                                          (_model.apiResultLatLng?.jsonBody ??
+                                              ''),
+                                          r'''$.results[0].geometry.location.lat''',
+                                        ),
+                                        getJsonField(
+                                          (_model.apiResultLatLng?.jsonBody ??
+                                              ''),
+                                          r'''$.results[0].geometry.location.lng''',
+                                        ),
+                                        functions.calculateDistanceInMiles(
+                                            _model.placePickerStartValue.latLng,
+                                            functions.safeBuildLatLng(
+                                                getJsonField(
+                                                  (_model.apiResultLatLng
+                                                          ?.jsonBody ??
+                                                      ''),
+                                                  r'''$.results[0].geometry.location.lat''',
+                                                ),
+                                                getJsonField(
+                                                  (_model.apiResultLatLng
+                                                          ?.jsonBody ??
+                                                      ''),
+                                                  r'''$.results[0].geometry.location.lng''',
+                                                )))));
+                                logFirebaseEvent('Button_wait__delay');
+                                await Future.delayed(
+                                  Duration(
+                                    milliseconds: 100,
+                                  ),
+                                );
+                              }
+                            }
+                          } else {
+                            logFirebaseEvent('Button_show_snack_bar');
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text(
+                                  'Error seaching nearby, try again',
+                                  style: TextStyle(
+                                    color: FlutterFlowTheme.of(context)
+                                        .primaryText,
+                                  ),
+                                ),
+                                duration: Duration(milliseconds: 4000),
+                                backgroundColor:
+                                    FlutterFlowTheme.of(context).secondary,
+                              ),
+                            );
+                          }
+
+                          safeSetState(() {});
+                        },
+                        text: 'Find Stations Nearby',
+                        options: FFButtonOptions(
+                          width: double.infinity,
+                          height: 40.0,
+                          padding: EdgeInsetsDirectional.fromSTEB(
+                              16.0, 0.0, 16.0, 0.0),
+                          iconPadding: EdgeInsetsDirectional.fromSTEB(
+                              0.0, 0.0, 0.0, 0.0),
+                          color: FlutterFlowTheme.of(context).primary,
+                          textStyle:
+                              FlutterFlowTheme.of(context).labelLarge.override(
+                                    font: GoogleFonts.glory(
+                                      fontWeight: FlutterFlowTheme.of(context)
+                                          .labelLarge
+                                          .fontWeight,
+                                      fontStyle: FlutterFlowTheme.of(context)
+                                          .labelLarge
+                                          .fontStyle,
+                                    ),
+                                    letterSpacing: 0.0,
                                     fontWeight: FlutterFlowTheme.of(context)
                                         .labelLarge
                                         .fontWeight,
@@ -578,24 +598,15 @@ class _NearbyListSearchWidgetState extends State<NearbyListSearchWidget> {
                                         .labelLarge
                                         .fontStyle,
                                   ),
-                                  letterSpacing: 0.0,
-                                  fontWeight: FlutterFlowTheme.of(context)
-                                      .labelLarge
-                                      .fontWeight,
-                                  fontStyle: FlutterFlowTheme.of(context)
-                                      .labelLarge
-                                      .fontStyle,
-                                ),
-                            elevation: 0.0,
-                            borderRadius: BorderRadius.circular(8.0),
-                          ),
+                          elevation: 0.0,
+                          borderRadius: BorderRadius.circular(8.0),
                         ),
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),
