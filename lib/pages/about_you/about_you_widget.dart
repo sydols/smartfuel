@@ -166,6 +166,7 @@ class _AboutYouWidgetState extends State<AboutYouWidget> {
                             child: Container(
                               width: double.infinity,
                               child: TextFormField(
+                                key: ValueKey('enterName_7scu'),
                                 controller: _model.enterNameTextController,
                                 focusNode: _model.enterNameFocusNode,
                                 autofocus: false,
@@ -287,6 +288,7 @@ class _AboutYouWidgetState extends State<AboutYouWidget> {
                           Padding(
                             padding: EdgeInsets.all(24.0),
                             child: FlutterFlowDropDown<String>(
+                              key: ValueKey('vehicleDropDown_9dne'),
                               controller:
                                   _model.vehicleDropDownValueController ??=
                                       FormFieldController<String>(null),
@@ -338,6 +340,7 @@ class _AboutYouWidgetState extends State<AboutYouWidget> {
                             Padding(
                               padding: EdgeInsets.all(24.0),
                               child: FlutterFlowDropDown<String>(
+                                key: ValueKey('fuelDropDown_m0eg'),
                                 controller:
                                     _model.fuelDropDownValueController ??=
                                         FormFieldController<String>(null),
@@ -397,6 +400,7 @@ class _AboutYouWidgetState extends State<AboutYouWidget> {
                               child: Container(
                                 width: double.infinity,
                                 child: TextFormField(
+                                  key: ValueKey('enterMpg_06cl'),
                                   controller: _model.enterMpgTextController,
                                   focusNode: _model.enterMpgFocusNode,
                                   autofocus: false,
@@ -540,6 +544,7 @@ class _AboutYouWidgetState extends State<AboutYouWidget> {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           FFButtonWidget(
+                            key: ValueKey('Button_mzyk'),
                             onPressed: () async {
                               logFirebaseEvent(
                                   'ABOUT_YOU_PAGE_NEXT_BTN_ON_TAP');

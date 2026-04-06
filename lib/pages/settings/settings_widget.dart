@@ -479,6 +479,7 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                               child: AuthUserStreamWidget(
                                 builder: (context) =>
                                     FlutterFlowDropDown<String>(
+                                  key: ValueKey('fuelDropDown_vgd7'),
                                   controller:
                                       _model.fuelDropDownValueController ??=
                                           FormFieldController<String>(
@@ -686,6 +687,7 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                     ),
                   ),
                   FFButtonWidget(
+                    key: ValueKey('Button_ppzg'),
                     onPressed: () async {
                       logFirebaseEvent('SETTINGS_PAGE_SAVE_CHANGES_BTN_ON_TAP');
                       logFirebaseEvent('Button_backend_call');

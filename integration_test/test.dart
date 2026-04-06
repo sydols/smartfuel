@@ -36,6 +36,7 @@ void main() async {
       ));
       await GoogleFonts.pendingFonts();
 
+      await tester.pumpAndSettle(const Duration(milliseconds: 3000));
       await tester.tap(find.byKey(const ValueKey('enterEmail_xvom')));
       await tester.enterText(
           find.byKey(const ValueKey('enterEmail_xvom')), 'newuser@uri.edu');
@@ -59,6 +60,7 @@ void main() async {
       ));
       await GoogleFonts.pendingFonts();
 
+      await tester.pumpAndSettle(const Duration(milliseconds: 3000));
       await tester.tap(find.byKey(const ValueKey('enterEmail_xvom')));
       await tester.enterText(
           find.byKey(const ValueKey('enterEmail_xvom')), 'rhodyram@uri.edu');
@@ -82,6 +84,7 @@ void main() async {
       ));
       await GoogleFonts.pendingFonts();
 
+      await tester.pumpAndSettle(const Duration(milliseconds: 3000));
       await tester.tap(find.byKey(const ValueKey('enterEmail_xvom')));
       await tester.enterText(
           find.byKey(const ValueKey('enterEmail_xvom')), 'rhodyram');
@@ -95,6 +98,65 @@ void main() async {
       await tester.tap(find.byKey(const ValueKey('Button_6rc8')));
       await tester.pumpAndSettle(const Duration(milliseconds: 3000));
       expect(find.byKey(const ValueKey('Text_upe1')), findsWidgets);
+    });
+  });
+
+  group('US3: Profile Creation', () {
+    testWidgets('Successful Profile Creation', (WidgetTester tester) async {
+      _overrideOnError();
+
+      await tester.pumpWidget(MyApp(
+        entryPage: AboutYouWidget(),
+      ));
+      await GoogleFonts.pendingFonts();
+
+      await tester.tap(find.byKey(const ValueKey('enterName_7scu')));
+      await tester.enterText(
+          find.byKey(const ValueKey('enterName_7scu')), 'Jane');
+      await tester.tap(find.byKey(const ValueKey('vehicleDropDown_9dne')));
+      await tester.tap(find.text('Gas'));
+      await tester.tap(find.byKey(const ValueKey('fuelDropDown_m0eg')));
+      await tester.tap(find.text('Regular'));
+      await tester.tap(find.byKey(const ValueKey('enterMpg_06cl')));
+      await tester.enterText(find.byKey(const ValueKey('enterMpg_06cl')), '20');
+      await tester.tap(find.byKey(const ValueKey('Button_mzyk')));
+      await tester.pumpAndSettle(const Duration(milliseconds: 3000));
+      expect(find.byKey(const ValueKey('Text_pokw')), findsOneWidget);
+    });
+
+    testWidgets('Edit Profile Information', (WidgetTester tester) async {
+      _overrideOnError();
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+          email: 'newuser@uri.edu', password: 'Str0ngP@ssw0rd!');
+      await tester.pumpWidget(MyApp(
+        entryPage: SettingsWidget(),
+      ));
+      await GoogleFonts.pendingFonts();
+
+      await tester.tap(find.byKey(const ValueKey('fuelDropDown_vgd7')));
+      await tester.tap(find.text('Premium'));
+      await tester.tap(find.byKey(const ValueKey('Button_ppzg')));
+      await tester.pumpAndSettle(const Duration(milliseconds: 1000));
+    });
+
+    testWidgets('Missing Required Fields', (WidgetTester tester) async {
+      _overrideOnError();
+
+      await tester.pumpWidget(MyApp(
+        entryPage: AboutYouWidget(),
+      ));
+      await GoogleFonts.pendingFonts();
+
+      await tester.tap(find.byKey(const ValueKey('enterName_7scu')));
+      await tester.enterText(
+          find.byKey(const ValueKey('enterName_7scu')), 'Jane');
+      await tester.tap(find.byKey(const ValueKey('vehicleDropDown_9dne')));
+      await tester.tap(find.text('Gas'));
+      await tester.tap(find.byKey(const ValueKey('enterMpg_06cl')));
+      await tester.enterText(find.byKey(const ValueKey('enterMpg_06cl')), '25');
+      await tester.tap(find.byKey(const ValueKey('Button_mzyk')));
+      await tester.pumpAndSettle(const Duration(milliseconds: 3000));
+      expect(find.text('Please complete all required fields'), findsWidgets);
     });
   });
 }
