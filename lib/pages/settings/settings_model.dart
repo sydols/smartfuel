@@ -15,9 +15,12 @@ class SettingsModel extends FlutterFlowModel<SettingsWidget> {
   FocusNode? nameFocusNode;
   TextEditingController? nameTextController;
   String? Function(BuildContext, String?)? nameTextControllerValidator;
-  // State field(s) for DropDown widget.
-  String? dropDownValue;
-  FormFieldController<String>? dropDownValueController;
+  // State field(s) for vehicleDropDown widget.
+  String? vehicleDropDownValue;
+  FormFieldController<String>? vehicleDropDownValueController;
+  // State field(s) for fuelDropDown widget.
+  String? fuelDropDownValue;
+  FormFieldController<String>? fuelDropDownValueController;
   // State field(s) for mpg widget.
   FocusNode? mpgFocusNode;
   TextEditingController? mpgTextController;

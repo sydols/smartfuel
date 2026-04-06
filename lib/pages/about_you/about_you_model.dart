@@ -11,9 +11,12 @@ class AboutYouModel extends FlutterFlowModel<AboutYouWidget> {
   FocusNode? enterNameFocusNode;
   TextEditingController? enterNameTextController;
   String? Function(BuildContext, String?)? enterNameTextControllerValidator;
-  // State field(s) for DropDown widget.
-  String? dropDownValue;
-  FormFieldController<String>? dropDownValueController;
+  // State field(s) for vehicleDropDown widget.
+  String? vehicleDropDownValue;
+  FormFieldController<String>? vehicleDropDownValueController;
+  // State field(s) for fuelDropDown widget.
+  String? fuelDropDownValue;
+  FormFieldController<String>? fuelDropDownValueController;
   // State field(s) for enterMpg widget.
   FocusNode? enterMpgFocusNode;
   TextEditingController? enterMpgTextController;

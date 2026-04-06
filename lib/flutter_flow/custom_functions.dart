@@ -16,7 +16,6 @@ import '/auth/firebase_auth/auth_util.dart';
 /// Takes the user's current location in LatLng form and outputs it as a
 /// doubles for Lat.
 double currLocationToLat(LatLng currLocation) {
-  // Takes the user's current location in LatLng form and outputs it as two doubles for Lat and Lng in a list.
   return currLocation.latitude;
 }
 
@@ -215,17 +214,6 @@ List<LatLng>? parseStationLatLng(dynamic apiResponse) {
   }).toList();
 }
 
-LatLng? convertToLatLng(
-  double? lat,
-  double? lng,
-) {
-  // Create a function called convertToLatLng that takes two nullable doubles (double? lat, double? lng) and returns a nullable LatLng?. Inside the function, check if either lat or lng is null; if they are, return null. Otherwise, return a LatLng object using those two values
-  if (lat == null || lng == null) {
-    return null;
-  }
-  return LatLng(lat!, lng!);
-}
-
 double calculateDistanceInMiles(
   LatLng? startLoc,
   LatLng? stationLoc,
@@ -264,7 +252,7 @@ dynamic buildStationJson(
     "address": stationAddress ?? "Unknown Address",
     "lat": lat ?? 0.0,
     "lng": lng ?? 0.0,
-    "distance": distance ?? 0.0
+    "distance": distance ?? 0.0,
   };
 }
 
@@ -287,4 +275,38 @@ List<LatLng> extractMarkersFromJson(List<dynamic>? stationList) {
   }
 
   return markers;
+}
+
+LatLng? convertToLatLng(
+  double? lat,
+  double? lng,
+) {
+  // Create a function called convertToLatLng that takes two nullable doubles (double? lat, double? lng) and returns a nullable LatLng?. Inside the function, check if either lat or lng is null; if they are, return null. Otherwise, return a LatLng object using those two values
+  if (lat == null || lng == null) {
+    return null;
+  }
+  return LatLng(lat!, lng!);
+}
+
+dynamic getStationTypes(String? vehicleType) {
+  if (vehicleType == 'Gas') {
+    return ["gas_station"];
+  } else if (vehicleType == 'Electric') {
+    return ["electric_vehicle_charging_station"];
+  } else {
+    // Hybrid fallback
+    return ["gas_station", "electric_vehicle_charging_station"];
+  }
+}
+
+bool isEvChargerByName(String? stationName) {
+  if (stationName == null || stationName.trim().isEmpty) {
+    return false;
+  }
+
+  // 2. Convert the name to lowercase for a bulletproof search
+  String nameLower = stationName.toLowerCase();
+
+  // 3. Check if the string contains our keyword
+  return nameLower.contains('char') || nameLower.contains('rivian');
 }

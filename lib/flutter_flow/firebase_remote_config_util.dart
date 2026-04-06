@@ -8,6 +8,7 @@ Future initializeFirebaseRemoteConfig() async {
     ));
     await FirebaseRemoteConfig.instance.setDefaults(const {
       'google_sign_up': false,
+      'enable_price_notifications': false,
     });
     await FirebaseRemoteConfig.instance.fetchAndActivate();
   } catch (error) {

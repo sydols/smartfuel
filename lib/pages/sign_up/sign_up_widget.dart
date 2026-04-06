@@ -6,8 +6,8 @@ import '/flutter_flow/flutter_flow_widgets.dart';
 import '/custom_code/actions/index.dart' as actions;
 import '/index.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'sign_up_model.dart';
 export 'sign_up_model.dart';
 
@@ -32,6 +32,13 @@ class _SignUpWidgetState extends State<SignUpWidget> {
     _model = createModel(context, () => SignUpModel());
 
     logFirebaseEvent('screen_view', parameters: {'screen_name': 'signUp'});
+    // On page load action.
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
+      logFirebaseEvent('SIGN_UP_PAGE_signUp_ON_INIT_STATE');
+      logFirebaseEvent('signUp_custom_action');
+      await actions.logSignUpScreenViewed();
+    });
+
     _model.enterEmailTextController ??= TextEditingController();
     _model.enterEmailFocusNode ??= FocusNode();
 
@@ -53,8 +60,6 @@ class _SignUpWidgetState extends State<SignUpWidget> {
 
   @override
   Widget build(BuildContext context) {
-    context.watch<FFAppState>();
-
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();
@@ -136,6 +141,7 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                               padding: EdgeInsetsDirectional.fromSTEB(
                                   24.0, 0.0, 0.0, 0.0),
                               child: Text(
+                                key: ValueKey('Text_upe1'),
                                 'Sign Up',
                                 style: FlutterFlowTheme.of(context)
                                     .displaySmall
@@ -173,6 +179,7 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                                   child: Container(
                                     width: double.infinity,
                                     child: TextFormField(
+                                      key: ValueKey('enterEmail_xvom'),
                                       controller:
                                           _model.enterEmailTextController,
                                       focusNode: _model.enterEmailFocusNode,
@@ -313,6 +320,7 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                                   child: Container(
                                     width: double.infinity,
                                     child: TextFormField(
+                                      key: ValueKey('enterPass_alr8'),
                                       controller:
                                           _model.enterPassTextController,
                                       focusNode: _model.enterPassFocusNode,
@@ -468,6 +476,7 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                                   child: Container(
                                     width: double.infinity,
                                     child: TextFormField(
+                                      key: ValueKey('reEnterPass_fjr1'),
                                       controller:
                                           _model.reEnterPassTextController,
                                       focusNode: _model.reEnterPassFocusNode,
@@ -637,6 +646,7 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
                           FFButtonWidget(
+                            key: ValueKey('Button_6rc8'),
                             onPressed: () async {
                               logFirebaseEvent(
                                   'SIGN_UP_PAGE_SIGN_UP_BTN_ON_TAP');
@@ -689,6 +699,10 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                                   .update(createUsersRecordData(
                                 loginTime: getCurrentTimestamp,
                               ));
+                              logFirebaseEvent('Button_custom_action');
+                              await actions.logSignUpSuccess(
+                                'email_password',
+                              );
                               logFirebaseEvent('Button_navigate_to');
 
                               context.pushNamedAuth(
@@ -791,7 +805,7 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                           ),
                           Builder(
                             builder: (context) {
-                              if (FFAppState().showGoogleSignIn) {
+                              if (getRemoteConfigBool('google_sign_up')) {
                                 return FFButtonWidget(
                                   onPressed: () async {
                                     logFirebaseEvent(

@@ -32,25 +32,16 @@ class _SettingsWidgetState extends State<SettingsWidget> {
     _model = createModel(context, () => SettingsModel());
 
     logFirebaseEvent('screen_view', parameters: {'screen_name': 'settings'});
-    _model.emailTextController ??= TextEditingController(
-        text: valueOrDefault<String>(
-      currentUserEmail,
-      'example@email.com',
-    ));
+    _model.emailTextController ??=
+        TextEditingController(text: currentUserEmail);
     _model.emailFocusNode ??= FocusNode();
 
     _model.nameTextController ??= TextEditingController(
-        text: valueOrDefault<String>(
-      valueOrDefault(currentUserDocument?.name, ''),
-      'Jane Doe',
-    ));
+        text: valueOrDefault(currentUserDocument?.name, ''));
     _model.nameFocusNode ??= FocusNode();
 
     _model.mpgTextController ??= TextEditingController(
-        text: valueOrDefault<String>(
-      valueOrDefault(currentUserDocument?.mpg, 0).toString(),
-      '26',
-    ));
+        text: valueOrDefault(currentUserDocument?.mpg, 0).toString());
     _model.mpgFocusNode ??= FocusNode();
 
     WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
@@ -430,24 +421,16 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                             padding: EdgeInsets.all(12.0),
                             child: AuthUserStreamWidget(
                               builder: (context) => FlutterFlowDropDown<String>(
-                                controller: _model.dropDownValueController ??=
-                                    FormFieldController<String>(
-                                  _model.dropDownValue ??=
-                                      valueOrDefault<String>(
-                                    valueOrDefault(
-                                        currentUserDocument?.dropdownSelect,
-                                        ''),
-                                    'Regular',
-                                  ),
+                                controller:
+                                    _model.vehicleDropDownValueController ??=
+                                        FormFieldController<String>(
+                                  _model.vehicleDropDownValue ??=
+                                      valueOrDefault(
+                                          currentUserDocument?.vehicleType, ''),
                                 ),
-                                options: [
-                                  'Regular',
-                                  'Mid-grade',
-                                  'Premium',
-                                  'Diesel'
-                                ],
+                                options: ['Gas', 'Hybrid', 'Electric'],
                                 onChanged: (val) => safeSetState(
-                                    () => _model.dropDownValue = val),
+                                    () => _model.vehicleDropDownValue = val),
                                 width: double.infinity,
                                 height: 40.0,
                                 textStyle: FlutterFlowTheme.of(context)
@@ -469,7 +452,7 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                                           .bodyMedium
                                           .fontStyle,
                                     ),
-                                hintText: 'Fuel Type...',
+                                hintText: 'Vehicle Type...',
                                 icon: Icon(
                                   Icons.keyboard_arrow_down_rounded,
                                   color: FlutterFlowTheme.of(context)
@@ -490,107 +473,34 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                               ),
                             ),
                           ),
-                          Padding(
-                            padding: EdgeInsets.all(12.0),
-                            child: AuthUserStreamWidget(
-                              builder: (context) => Container(
-                                width: double.infinity,
-                                child: TextFormField(
-                                  controller: _model.mpgTextController,
-                                  focusNode: _model.mpgFocusNode,
-                                  autofocus: false,
-                                  enabled: true,
-                                  obscureText: false,
-                                  decoration: InputDecoration(
-                                    isDense: true,
-                                    labelText: 'Your Car\'s Miles Per Gallon',
-                                    labelStyle: FlutterFlowTheme.of(context)
-                                        .labelMedium
-                                        .override(
-                                          font: GoogleFonts.glory(
-                                            fontWeight:
-                                                FlutterFlowTheme.of(context)
-                                                    .labelMedium
-                                                    .fontWeight,
-                                            fontStyle:
-                                                FlutterFlowTheme.of(context)
-                                                    .labelMedium
-                                                    .fontStyle,
-                                          ),
-                                          color: FlutterFlowTheme.of(context)
-                                              .primaryText,
-                                          letterSpacing: 0.0,
-                                          fontWeight:
-                                              FlutterFlowTheme.of(context)
-                                                  .labelMedium
-                                                  .fontWeight,
-                                          fontStyle:
-                                              FlutterFlowTheme.of(context)
-                                                  .labelMedium
-                                                  .fontStyle,
-                                        ),
-                                    hintText: 'Miles Per Gallon...',
-                                    hintStyle: FlutterFlowTheme.of(context)
-                                        .labelMedium
-                                        .override(
-                                          font: GoogleFonts.glory(
-                                            fontWeight:
-                                                FlutterFlowTheme.of(context)
-                                                    .labelMedium
-                                                    .fontWeight,
-                                            fontStyle:
-                                                FlutterFlowTheme.of(context)
-                                                    .labelMedium
-                                                    .fontStyle,
-                                          ),
-                                          color: FlutterFlowTheme.of(context)
-                                              .primaryText,
-                                          letterSpacing: 0.0,
-                                          fontWeight:
-                                              FlutterFlowTheme.of(context)
-                                                  .labelMedium
-                                                  .fontWeight,
-                                          fontStyle:
-                                              FlutterFlowTheme.of(context)
-                                                  .labelMedium
-                                                  .fontStyle,
-                                        ),
-                                    enabledBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                        color: FlutterFlowTheme.of(context)
-                                            .primary,
-                                        width: 1.0,
-                                      ),
-                                      borderRadius: BorderRadius.circular(15.0),
+                          if (_model.vehicleDropDownValue != 'Electric')
+                            Padding(
+                              padding: EdgeInsets.all(12.0),
+                              child: AuthUserStreamWidget(
+                                builder: (context) =>
+                                    FlutterFlowDropDown<String>(
+                                  controller:
+                                      _model.fuelDropDownValueController ??=
+                                          FormFieldController<String>(
+                                    _model.fuelDropDownValue ??=
+                                        valueOrDefault<String>(
+                                      valueOrDefault(
+                                          currentUserDocument?.dropdownSelect,
+                                          ''),
+                                      'Regular',
                                     ),
-                                    focusedBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                        color: Color(0x00000000),
-                                        width: 1.0,
-                                      ),
-                                      borderRadius: BorderRadius.circular(15.0),
-                                    ),
-                                    errorBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                        color:
-                                            FlutterFlowTheme.of(context).error,
-                                        width: 1.0,
-                                      ),
-                                      borderRadius: BorderRadius.circular(15.0),
-                                    ),
-                                    focusedErrorBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                        color:
-                                            FlutterFlowTheme.of(context).error,
-                                        width: 1.0,
-                                      ),
-                                      borderRadius: BorderRadius.circular(15.0),
-                                    ),
-                                    filled: true,
-                                    fillColor: Color(0xFFD9D9D9),
-                                    contentPadding: EdgeInsets.all(15.0),
                                   ),
-                                  style: FlutterFlowTheme.of(context)
+                                  options: [
+                                    'Regular',
+                                    'Mid-grade',
+                                    'Premium',
+                                    'Diesel'
+                                  ],
+                                  onChanged: (val) => safeSetState(
+                                      () => _model.fuelDropDownValue = val),
+                                  width: double.infinity,
+                                  height: 40.0,
+                                  textStyle: FlutterFlowTheme.of(context)
                                       .bodyMedium
                                       .override(
                                         font: GoogleFonts.glory(
@@ -603,8 +513,6 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                                                   .bodyMedium
                                                   .fontStyle,
                                         ),
-                                        color: FlutterFlowTheme.of(context)
-                                            .primaryText,
                                         letterSpacing: 0.0,
                                         fontWeight: FlutterFlowTheme.of(context)
                                             .bodyMedium
@@ -613,15 +521,166 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                                             .bodyMedium
                                             .fontStyle,
                                       ),
-                                  cursorColor:
-                                      FlutterFlowTheme.of(context).primaryText,
-                                  enableInteractiveSelection: true,
-                                  validator: _model.mpgTextControllerValidator
-                                      .asValidator(context),
+                                  hintText: 'Fuel Type...',
+                                  icon: Icon(
+                                    Icons.keyboard_arrow_down_rounded,
+                                    color: FlutterFlowTheme.of(context)
+                                        .secondaryText,
+                                    size: 24.0,
+                                  ),
+                                  fillColor: Color(0xFFD9D9D9),
+                                  elevation: 2.0,
+                                  borderColor:
+                                      FlutterFlowTheme.of(context).primary,
+                                  borderWidth: 1.0,
+                                  borderRadius: 15.0,
+                                  margin: EdgeInsets.all(10.0),
+                                  hidesUnderline: true,
+                                  isOverButton: false,
+                                  isSearchable: false,
+                                  isMultiSelect: false,
                                 ),
                               ),
                             ),
-                          ),
+                          if (_model.vehicleDropDownValue != 'Electric')
+                            Padding(
+                              padding: EdgeInsets.all(12.0),
+                              child: AuthUserStreamWidget(
+                                builder: (context) => Container(
+                                  width: double.infinity,
+                                  child: TextFormField(
+                                    controller: _model.mpgTextController,
+                                    focusNode: _model.mpgFocusNode,
+                                    autofocus: false,
+                                    enabled: true,
+                                    obscureText: false,
+                                    decoration: InputDecoration(
+                                      isDense: true,
+                                      labelText: 'Your Car\'s Miles Per Gallon',
+                                      labelStyle: FlutterFlowTheme.of(context)
+                                          .labelMedium
+                                          .override(
+                                            font: GoogleFonts.glory(
+                                              fontWeight:
+                                                  FlutterFlowTheme.of(context)
+                                                      .labelMedium
+                                                      .fontWeight,
+                                              fontStyle:
+                                                  FlutterFlowTheme.of(context)
+                                                      .labelMedium
+                                                      .fontStyle,
+                                            ),
+                                            color: FlutterFlowTheme.of(context)
+                                                .primaryText,
+                                            letterSpacing: 0.0,
+                                            fontWeight:
+                                                FlutterFlowTheme.of(context)
+                                                    .labelMedium
+                                                    .fontWeight,
+                                            fontStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .labelMedium
+                                                    .fontStyle,
+                                          ),
+                                      hintText: 'Miles Per Gallon...',
+                                      hintStyle: FlutterFlowTheme.of(context)
+                                          .labelMedium
+                                          .override(
+                                            font: GoogleFonts.glory(
+                                              fontWeight:
+                                                  FlutterFlowTheme.of(context)
+                                                      .labelMedium
+                                                      .fontWeight,
+                                              fontStyle:
+                                                  FlutterFlowTheme.of(context)
+                                                      .labelMedium
+                                                      .fontStyle,
+                                            ),
+                                            color: FlutterFlowTheme.of(context)
+                                                .primaryText,
+                                            letterSpacing: 0.0,
+                                            fontWeight:
+                                                FlutterFlowTheme.of(context)
+                                                    .labelMedium
+                                                    .fontWeight,
+                                            fontStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .labelMedium
+                                                    .fontStyle,
+                                          ),
+                                      enabledBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                          color: FlutterFlowTheme.of(context)
+                                              .primary,
+                                          width: 1.0,
+                                        ),
+                                        borderRadius:
+                                            BorderRadius.circular(15.0),
+                                      ),
+                                      focusedBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                          color: Color(0x00000000),
+                                          width: 1.0,
+                                        ),
+                                        borderRadius:
+                                            BorderRadius.circular(15.0),
+                                      ),
+                                      errorBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                          color: FlutterFlowTheme.of(context)
+                                              .error,
+                                          width: 1.0,
+                                        ),
+                                        borderRadius:
+                                            BorderRadius.circular(15.0),
+                                      ),
+                                      focusedErrorBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                          color: FlutterFlowTheme.of(context)
+                                              .error,
+                                          width: 1.0,
+                                        ),
+                                        borderRadius:
+                                            BorderRadius.circular(15.0),
+                                      ),
+                                      filled: true,
+                                      fillColor: Color(0xFFD9D9D9),
+                                      contentPadding: EdgeInsets.all(15.0),
+                                    ),
+                                    style: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .override(
+                                          font: GoogleFonts.glory(
+                                            fontWeight:
+                                                FlutterFlowTheme.of(context)
+                                                    .bodyMedium
+                                                    .fontWeight,
+                                            fontStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .bodyMedium
+                                                    .fontStyle,
+                                          ),
+                                          color: FlutterFlowTheme.of(context)
+                                              .primaryText,
+                                          letterSpacing: 0.0,
+                                          fontWeight:
+                                              FlutterFlowTheme.of(context)
+                                                  .bodyMedium
+                                                  .fontWeight,
+                                          fontStyle:
+                                              FlutterFlowTheme.of(context)
+                                                  .bodyMedium
+                                                  .fontStyle,
+                                        ),
+                                    cursorColor: FlutterFlowTheme.of(context)
+                                        .primaryText,
+                                    enableInteractiveSelection: true,
+                                    validator: _model.mpgTextControllerValidator
+                                        .asValidator(context),
+                                  ),
+                                ),
+                              ),
+                            ),
                         ].divide(SizedBox(height: 24.0)),
                       ),
                     ),
@@ -635,7 +694,8 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                         email: _model.emailTextController.text,
                         name: _model.nameTextController.text,
                         mpg: int.tryParse(_model.mpgTextController.text),
-                        dropdownSelect: _model.dropDownValue,
+                        dropdownSelect: _model.fuelDropDownValue,
+                        vehicleType: _model.vehicleDropDownValue,
                       ));
                     },
                     text: 'Save Changes',

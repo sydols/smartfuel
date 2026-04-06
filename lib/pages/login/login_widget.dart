@@ -7,8 +7,8 @@ import '/flutter_flow/flutter_flow_widgets.dart';
 import '/custom_code/actions/index.dart' as actions;
 import '/index.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'login_model.dart';
 export 'login_model.dart';
 
@@ -33,6 +33,13 @@ class _LoginWidgetState extends State<LoginWidget> {
     _model = createModel(context, () => LoginModel());
 
     logFirebaseEvent('screen_view', parameters: {'screen_name': 'login'});
+    // On page load action.
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
+      logFirebaseEvent('LOGIN_PAGE_login_ON_INIT_STATE');
+      logFirebaseEvent('login_custom_action');
+      await actions.logSignUpScreenViewed();
+    });
+
     _model.enterEmailTextController ??= TextEditingController();
     _model.enterEmailFocusNode ??= FocusNode();
 
@@ -51,8 +58,6 @@ class _LoginWidgetState extends State<LoginWidget> {
 
   @override
   Widget build(BuildContext context) {
-    context.watch<FFAppState>();
-
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();
@@ -498,12 +503,22 @@ class _LoginWidgetState extends State<LoginWidget> {
                                 context.goNamedAuth(
                                     NearbyListSearchWidget.routeName,
                                     context.mounted);
+
+                                logFirebaseEvent('Button_custom_action');
+                                await actions.logSignUpSuccess(
+                                  'email_password',
+                                );
                               } else {
                                 logFirebaseEvent('Button_navigate_to');
 
                                 context.goNamedAuth(
                                     NearbyListSearchWidget.routeName,
                                     context.mounted);
+
+                                logFirebaseEvent('Button_custom_action');
+                                await actions.logSignUpSuccess(
+                                  'email_password',
+                                );
                               }
                             },
                             text: 'Login',
@@ -605,7 +620,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                           ),
                           Builder(
                             builder: (context) {
-                              if (FFAppState().showGoogleSignIn) {
+                              if (getRemoteConfigBool('google_sign_up')) {
                                 return FFButtonWidget(
                                   onPressed: () async {
                                     logFirebaseEvent(

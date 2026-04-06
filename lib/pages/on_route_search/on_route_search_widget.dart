@@ -106,13 +106,24 @@ class _OnRouteSearchWidgetState extends State<OnRouteSearchWidget> {
                   ],
                 ),
               ),
-              Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(24.0, 24.0, 0.0, 0.0),
-                child: Text(
-                  'Stations On Route',
-                  textAlign: TextAlign.start,
-                  style: FlutterFlowTheme.of(context).displayMedium.override(
-                        font: GoogleFonts.glory(
+              Align(
+                alignment: AlignmentDirectional(-1.0, -1.0),
+                child: Padding(
+                  padding: EdgeInsetsDirectional.fromSTEB(24.0, 24.0, 0.0, 0.0),
+                  child: Text(
+                    'Stations On Route',
+                    textAlign: TextAlign.start,
+                    style: FlutterFlowTheme.of(context).displayMedium.override(
+                          font: GoogleFonts.glory(
+                            fontWeight: FlutterFlowTheme.of(context)
+                                .displayMedium
+                                .fontWeight,
+                            fontStyle: FlutterFlowTheme.of(context)
+                                .displayMedium
+                                .fontStyle,
+                          ),
+                          color: FlutterFlowTheme.of(context).secondary,
+                          letterSpacing: 0.0,
                           fontWeight: FlutterFlowTheme.of(context)
                               .displayMedium
                               .fontWeight,
@@ -120,15 +131,7 @@ class _OnRouteSearchWidgetState extends State<OnRouteSearchWidget> {
                               .displayMedium
                               .fontStyle,
                         ),
-                        color: FlutterFlowTheme.of(context).secondary,
-                        letterSpacing: 0.0,
-                        fontWeight: FlutterFlowTheme.of(context)
-                            .displayMedium
-                            .fontWeight,
-                        fontStyle: FlutterFlowTheme.of(context)
-                            .displayMedium
-                            .fontStyle,
-                      ),
+                  ),
                 ),
               ),
               Container(
@@ -436,6 +439,37 @@ class _OnRouteSearchWidgetState extends State<OnRouteSearchWidget> {
                                           ),
                                         ],
                                       ),
+                                      Row(
+                                        mainAxisSize: MainAxisSize.max,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          if (!functions
+                                              .isEvChargerByName(getJsonField(
+                                            stationItemItem,
+                                            r'''$.name''',
+                                          ).toString()))
+                                            Icon(
+                                              Icons.local_gas_station_rounded,
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .primary,
+                                              size: 24.0,
+                                            ),
+                                          if (functions
+                                              .isEvChargerByName(getJsonField(
+                                            stationItemItem,
+                                            r'''$.name''',
+                                          ).toString()))
+                                            Icon(
+                                              Icons.charging_station_sharp,
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .secondary,
+                                              size: 24.0,
+                                            ),
+                                        ],
+                                      ),
                                     ],
                                   ),
                                 ),
@@ -606,6 +640,8 @@ class _OnRouteSearchWidgetState extends State<OnRouteSearchWidget> {
                             lng: functions.currLocationtoLng(currentLoop1Item),
                             radius: 1609.34,
                             resultCount: 2,
+                            typesJson: functions.getStationTypes(valueOrDefault(
+                                currentUserDocument?.vehicleType, '')),
                           );
 
                           if ((_model.apiResultier?.succeeded ?? true) ==

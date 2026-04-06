@@ -1,10 +1,14 @@
+import '/auth/firebase_auth/auth_util.dart';
 import '/backend/api_requests/api_calls.dart';
 import '/flutter_flow/flutter_flow_place_picker.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import '/custom_code/actions/index.dart' as actions;
 import '/flutter_flow/custom_functions.dart' as functions;
+import '/flutter_flow/permissions_util.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'nearby_list_search_model.dart';
 export 'nearby_list_search_model.dart';
@@ -31,6 +35,22 @@ class _NearbyListSearchWidgetState extends State<NearbyListSearchWidget> {
 
     logFirebaseEvent('screen_view',
         parameters: {'screen_name': 'NearbyListSearch'});
+    // On page load action.
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
+      logFirebaseEvent('NEARBY_LIST_SEARCH_NearbyListSearch_ON_I');
+      if (getRemoteConfigBool('enable_price_notifications') == true) {
+        logFirebaseEvent('NearbyListSearch_google_analytics_event');
+        logFirebaseEvent(' session_start');
+        logFirebaseEvent('NearbyListSearch_request_permissions');
+        await requestPermission(notificationsPermission);
+        logFirebaseEvent('NearbyListSearch_custom_action');
+        await actions.subscribeToPriceAlerts();
+      } else {
+        logFirebaseEvent('NearbyListSearch_google_analytics_event');
+        logFirebaseEvent(' session_start');
+      }
+    });
+
     WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
@@ -102,13 +122,24 @@ class _NearbyListSearchWidgetState extends State<NearbyListSearchWidget> {
                   ],
                 ),
               ),
-              Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(24.0, 24.0, 0.0, 0.0),
-                child: Text(
-                  'Stations Near You',
-                  textAlign: TextAlign.start,
-                  style: FlutterFlowTheme.of(context).displayMedium.override(
-                        font: GoogleFonts.glory(
+              Align(
+                alignment: AlignmentDirectional(-1.0, -1.0),
+                child: Padding(
+                  padding: EdgeInsetsDirectional.fromSTEB(24.0, 24.0, 0.0, 0.0),
+                  child: Text(
+                    'Stations Near You',
+                    textAlign: TextAlign.start,
+                    style: FlutterFlowTheme.of(context).displayMedium.override(
+                          font: GoogleFonts.glory(
+                            fontWeight: FlutterFlowTheme.of(context)
+                                .displayMedium
+                                .fontWeight,
+                            fontStyle: FlutterFlowTheme.of(context)
+                                .displayMedium
+                                .fontStyle,
+                          ),
+                          color: FlutterFlowTheme.of(context).secondary,
+                          letterSpacing: 0.0,
                           fontWeight: FlutterFlowTheme.of(context)
                               .displayMedium
                               .fontWeight,
@@ -116,15 +147,7 @@ class _NearbyListSearchWidgetState extends State<NearbyListSearchWidget> {
                               .displayMedium
                               .fontStyle,
                         ),
-                        color: FlutterFlowTheme.of(context).secondary,
-                        letterSpacing: 0.0,
-                        fontWeight: FlutterFlowTheme.of(context)
-                            .displayMedium
-                            .fontWeight,
-                        fontStyle: FlutterFlowTheme.of(context)
-                            .displayMedium
-                            .fontStyle,
-                      ),
+                  ),
                 ),
               ),
               Expanded(
@@ -409,6 +432,57 @@ class _NearbyListSearchWidgetState extends State<NearbyListSearchWidget> {
                                                 ),
                                               ],
                                             ),
+                                            Row(
+                                              mainAxisSize: MainAxisSize.max,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                if (!functions
+                                                        .isEvChargerByName(
+                                                            getJsonField(
+                                                      stationItemItem,
+                                                      r'''$.name''',
+                                                    ).toString()) ||
+                                                    (valueOrDefault(
+                                                            currentUserDocument
+                                                                ?.vehicleType,
+                                                            '') ==
+                                                        'Gas'))
+                                                  AuthUserStreamWidget(
+                                                    builder: (context) => Icon(
+                                                      Icons
+                                                          .local_gas_station_rounded,
+                                                      color:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .primary,
+                                                      size: 24.0,
+                                                    ),
+                                                  ),
+                                                if (functions.isEvChargerByName(
+                                                        getJsonField(
+                                                      stationItemItem,
+                                                      r'''$.name''',
+                                                    ).toString()) ||
+                                                    (valueOrDefault(
+                                                            currentUserDocument
+                                                                ?.vehicleType,
+                                                            '') ==
+                                                        'Electric'))
+                                                  AuthUserStreamWidget(
+                                                    builder: (context) => Icon(
+                                                      Icons
+                                                          .charging_station_sharp,
+                                                      color:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .secondary,
+                                                      size: 24.0,
+                                                    ),
+                                                  ),
+                                              ],
+                                            ),
                                           ],
                                         ),
                                       ),
@@ -479,6 +553,8 @@ class _NearbyListSearchWidgetState extends State<NearbyListSearchWidget> {
                                 _model.placePickerStartValue.latLng),
                             radius: 16000.0,
                             resultCount: 10,
+                            typesJson: functions.getStationTypes(valueOrDefault(
+                                currentUserDocument?.vehicleType, '')),
                           );
 
                           if ((_model.apiResultNearby?.succeeded ?? true)) {
@@ -548,6 +624,15 @@ class _NearbyListSearchWidgetState extends State<NearbyListSearchWidget> {
                                   Duration(
                                     milliseconds: 100,
                                   ),
+                                );
+                                logFirebaseEvent(
+                                    'Button_google_analytics_event');
+                                logFirebaseEvent(
+                                  'gas_search',
+                                  parameters: {
+                                    'variant': getRemoteConfigBool(
+                                        'enable_price_notifications'),
+                                  },
                                 );
                               }
                             }

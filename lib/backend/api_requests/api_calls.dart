@@ -128,13 +128,12 @@ class GoogleMapsSearchNearbyCall {
     double? lng = -122.3965,
     double? radius = 5000,
     int? resultCount = 20,
+    dynamic typesJson,
   }) async {
+    final types = _serializeJson(typesJson);
     final ffApiRequestBody = '''
 {
-  "includedTypes": [
-    "gas_station",
-    "electric_vehicle_charging_station"
-  ],
+  "includedTypes": ${types},
   "maxResultCount": ${resultCount},
   "locationRestriction": {
     "circle": {
@@ -153,8 +152,7 @@ class GoogleMapsSearchNearbyCall {
       headers: {
         'Content-Type': 'application/json',
         'X-Goog-Api-Key': 'AIzaSyApoT7jBvPSLIYoGDjBGQ2lZVrJFqrhh1k',
-        'X-Goog-FieldMask':
-            'places.displayName,places.formattedAddress,places.location',
+        'X-Goog-FieldMask': 'places.displayName,places.formattedAddress',
       },
       params: {},
       body: ffApiRequestBody,
@@ -191,6 +189,41 @@ class GoogleMapsSearchNearbyCall {
         r'''$.places''',
         true,
       ) as List?;
+}
+
+class AIChatCall {
+  static Future<ApiCallResponse> call({
+    String? prompt = '',
+  }) async {
+    final ffApiRequestBody = '''
+{
+  "contents": [
+    {
+      "parts": [
+        {
+          "text": "${escapeStringForJson(prompt)}"
+        }
+      ]
+    }
+  ]
+}''';
+    return ApiManager.instance.makeApiCall(
+      callName: 'AI Chat',
+      apiUrl:
+          'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=AIzaSyBHI-QN5gwiPy4Ua2ei6BwGW4KwJGqSwdA',
+      callType: ApiCallType.POST,
+      headers: {},
+      params: {},
+      body: ffApiRequestBody,
+      bodyType: BodyType.JSON,
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      isStreamingApi: false,
+      alwaysAllowBody: false,
+    );
+  }
 }
 
 class ApiPagingParams {

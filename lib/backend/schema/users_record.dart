@@ -90,6 +90,11 @@ class UsersRecord extends FirestoreRecord {
   int get routesPlanned => _routesPlanned ?? 0;
   bool hasRoutesPlanned() => _routesPlanned != null;
 
+  // "vehicle_type" field.
+  String? _vehicleType;
+  String get vehicleType => _vehicleType ?? '';
+  bool hasVehicleType() => _vehicleType != null;
+
   void _initializeFields() {
     _name = snapshotData['name'] as String?;
     _photoUrl = snapshotData['photo_url'] as String?;
@@ -106,6 +111,7 @@ class UsersRecord extends FirestoreRecord {
     _mapGenerated = castToType<int>(snapshotData['map_Generated']);
     _screenViewed = castToType<int>(snapshotData['screen_Viewed']);
     _routesPlanned = castToType<int>(snapshotData['routes_Planned']);
+    _vehicleType = snapshotData['vehicle_type'] as String?;
   }
 
   static CollectionReference get collection =>
@@ -157,6 +163,7 @@ Map<String, dynamic> createUsersRecordData({
   int? mapGenerated,
   int? screenViewed,
   int? routesPlanned,
+  String? vehicleType,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -175,6 +182,7 @@ Map<String, dynamic> createUsersRecordData({
       'map_Generated': mapGenerated,
       'screen_Viewed': screenViewed,
       'routes_Planned': routesPlanned,
+      'vehicle_type': vehicleType,
     }.withoutNulls,
   );
 
@@ -200,7 +208,8 @@ class UsersRecordDocumentEquality implements Equality<UsersRecord> {
         e1?.loginTime == e2?.loginTime &&
         e1?.mapGenerated == e2?.mapGenerated &&
         e1?.screenViewed == e2?.screenViewed &&
-        e1?.routesPlanned == e2?.routesPlanned;
+        e1?.routesPlanned == e2?.routesPlanned &&
+        e1?.vehicleType == e2?.vehicleType;
   }
 
   @override
@@ -219,7 +228,8 @@ class UsersRecordDocumentEquality implements Equality<UsersRecord> {
         e?.loginTime,
         e?.mapGenerated,
         e?.screenViewed,
-        e?.routesPlanned
+        e?.routesPlanned,
+        e?.vehicleType
       ]);
 
   @override
