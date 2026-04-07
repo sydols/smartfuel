@@ -151,10 +151,25 @@ void main() async {
           find.byKey(const ValueKey('enterName_7scu')), 'Jane');
       await tester.tap(find.byKey(const ValueKey('vehicleDropDown_9dne')));
       await tester.tap(find.text('Gas'));
+      await tester.scrollUntilVisible(
+        find.byKey(const ValueKey('fuelDropDown_m0eg')),
+        100.0,
+        scrollable: find.byType(Scrollable),
+      );
       await tester.tap(find.byKey(const ValueKey('fuelDropDown_m0eg')));
       await tester.tap(find.text('Regular'));
+      await tester.scrollUntilVisible(
+        find.byKey(const ValueKey('enterMpg_06cl')),
+        100.0,
+        scrollable: find.byType(Scrollable),
+      );
       await tester.tap(find.byKey(const ValueKey('enterMpg_06cl')));
       await tester.enterText(find.byKey(const ValueKey('enterMpg_06cl')), '20');
+      await tester.scrollUntilVisible(
+        find.byKey(const ValueKey('Button_mzyk')),
+        100.0,
+        scrollable: find.byType(Scrollable),
+      );
       await tester.tap(find.byKey(const ValueKey('Button_mzyk')));
       await tester.pumpAndSettle(const Duration(milliseconds: 3000));
       expect(
@@ -214,8 +229,18 @@ void main() async {
       await tester.tap(find.byKey(const ValueKey('enterName_7scu')));
       await tester.enterText(
           find.byKey(const ValueKey('enterName_7scu')), 'Jane');
-      await tester.tap(find.byKey(const ValueKey('enterMpg_06cl')));
-      await tester.enterText(find.byKey(const ValueKey('enterMpg_06cl')), '25');
+      await tester.scrollUntilVisible(
+        find.byKey(const ValueKey('fuelDropDown_m0eg')),
+        100.0,
+        scrollable: find.byType(Scrollable),
+      );
+      await tester.tap(find.byKey(const ValueKey('fuelDropDown_m0eg')));
+      await tester.tap(find.text('Regular'));
+      await tester.scrollUntilVisible(
+        find.byKey(const ValueKey('Button_mzyk')),
+        100.0,
+        scrollable: find.byType(Scrollable),
+      );
       await tester.tap(find.byKey(const ValueKey('Button_mzyk')));
       await tester.pumpAndSettle(const Duration(milliseconds: 3000));
       expect(
