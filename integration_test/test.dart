@@ -131,6 +131,7 @@ void main() async {
       ));
       await GoogleFonts.pendingFonts();
 
+      await tester.pumpAndSettle(const Duration(milliseconds: 3000));
       await tester.enterText(
           find.byKey(const ValueKey('enterEmail_xvom')), 'newuser2@uri.edu');
       await tester.enterText(
@@ -159,6 +160,7 @@ void main() async {
       ));
       await GoogleFonts.pendingFonts();
 
+      await tester.pumpAndSettle(const Duration(milliseconds: 3000));
       await tester.enterText(
           find.byKey(const ValueKey('enterEmail_stjz')), 'user@example.com');
       await tester.enterText(
@@ -181,6 +183,7 @@ void main() async {
       ));
       await GoogleFonts.pendingFonts();
 
+      await tester.pumpAndSettle(const Duration(milliseconds: 3000));
       await tester.enterText(
           find.byKey(const ValueKey('enterEmail_xvom')), 'newuser3@uri.edu');
       await tester.enterText(
