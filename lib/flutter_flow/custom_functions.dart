@@ -240,22 +240,6 @@ double calculateDistanceInMiles(
   return double.parse(distance.toStringAsFixed(1));
 }
 
-dynamic buildStationJson(
-  String? stationName,
-  String? stationAddress,
-  double? lat,
-  double? lng,
-  double? distance,
-) {
-  return {
-    "name": stationName ?? "Unknown Station",
-    "address": stationAddress ?? "Unknown Address",
-    "lat": lat ?? 0.0,
-    "lng": lng ?? 0.0,
-    "distance": distance ?? 0.0,
-  };
-}
-
 List<LatLng> extractMarkersFromJson(List<dynamic>? stationList) {
   if (stationList == null || stationList.isEmpty) {
     return [];
@@ -309,4 +293,50 @@ bool isEvChargerByName(String? stationName) {
 
   // 3. Check if the string contains our keyword
   return nameLower.contains('char') || nameLower.contains('rivian');
+}
+
+dynamic buildStationJson(
+  String? stationName,
+  String? stationAddress,
+  double? lat,
+  double? lng,
+  double? distance,
+  List<dynamic> pricingList,
+) {
+  String rawGoogleAddress = stationAddress ?? '';
+  String googleAddress =
+      rawGoogleAddress.toLowerCase().replaceAll(RegExp(r'[,.]'), '');
+  String stationPrice = "Price Unavailable"; // Default fallback
+
+  if (pricingList != null) {
+    for (var priceRecord in pricingList) {
+      // Extract and normalize the DB street address
+      String dbAddress = (priceRecord['address'] ?? '')
+          .toLowerCase()
+          .replaceAll(RegExp(r'[,.]'), '');
+
+      // Extract and normalize the DB city (acts as a safety net so we don't match the same street in a different town)
+      String dbCity = (priceRecord['city'] ?? '')
+          .toLowerCase()
+          .replaceAll(RegExp(r'[,.]'), '');
+
+      // 3. The Fuzzy Match: Check if Google's string contains BOTH the street and the city
+      if (dbAddress.isNotEmpty &&
+          googleAddress.contains(dbAddress) &&
+          googleAddress.contains(dbCity)) {
+        // We found a match! Grab the price.
+        // (You can also add logic here to check if it's an EV charger and pull that specific rate instead)
+        stationPrice = "\$" + priceRecord['regularPrice'].toString();
+        break; // Stop searching once we find the match
+      }
+    }
+  }
+  return {
+    "name": stationName ?? "Unknown Station",
+    "address": stationAddress ?? "Unknown Address",
+    "price": stationPrice,
+    "lat": lat ?? 0.0,
+    "lng": lng ?? 0.0,
+    "distance": distance ?? 0.0,
+  };
 }

@@ -10,6 +10,7 @@ import 'backend/push_notifications/push_notifications_util.dart';
 import 'backend/firebase/firebase_config.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import 'flutter_flow/flutter_flow_util.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'index.dart';
 
 
@@ -137,7 +138,7 @@ class NavBarPage extends StatefulWidget {
 
 /// This is the private State class that goes with NavBarPage.
 class _NavBarPageState extends State<NavBarPage> {
-  String _currentPageName = 'AIChat';
+  String _currentPageName = 'NearbyMapSearch';
   late Widget? _currentPage;
 
   @override
@@ -207,11 +208,11 @@ class _NavBarPageState extends State<NavBarPage> {
             tooltip: '',
           ),
           BottomNavigationBarItem(
-            icon: Icon(
-              Icons.home_outlined,
+            icon: FaIcon(
+              FontAwesomeIcons.robot,
               size: 24.0,
             ),
-            label: 'Home',
+            label: 'AI Chat',
             tooltip: '',
           )
         ],

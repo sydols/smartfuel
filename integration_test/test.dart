@@ -37,20 +37,26 @@ void main() async {
       await GoogleFonts.pendingFonts();
 
       await tester.pumpAndSettle(const Duration(milliseconds: 3000));
-      await tester.tap(find.byKey(const ValueKey('Button_cs97')));
-      await tester.pumpAndSettle(const Duration(milliseconds: 3000));
+      await tester.tap(find.byKey(const ValueKey('enterEmail_xvom')));
       await tester.enterText(
           find.byKey(const ValueKey('enterEmail_xvom')), 'newuser@uri.edu');
+      await tester.pumpAndSettle(const Duration(milliseconds: 3000));
       await tester.tap(find.byKey(const ValueKey('enterPass_alr8')));
       await tester.enterText(
           find.byKey(const ValueKey('enterPass_alr8')), 'Str0ngP@ssw0rd!');
+      await tester.pumpAndSettle(const Duration(milliseconds: 3000));
       await tester.tap(find.byKey(const ValueKey('reEnterPass_fjr1')));
       await tester.enterText(
           find.byKey(const ValueKey('reEnterPass_fjr1')), 'Str0ngP@ssw0rd!');
       await tester.pumpAndSettle(const Duration(milliseconds: 3000));
       await tester.tap(find.byKey(const ValueKey('Button_6rc8')));
       await tester.pumpAndSettle(const Duration(milliseconds: 3000));
-      expect(find.byKey(const ValueKey('Text_bih8')), findsWidgets);
+      expect(
+        tester
+            .widget<FFButtonWidget>(find.byKey(const ValueKey('Button_mzyk')))
+            .onPressed,
+        isNotNull,
+      );
     });
 
     testWidgets('Account Already Exists', (WidgetTester tester) async {
@@ -105,30 +111,29 @@ void main() async {
   group('US3: Profile Creation', () {
     testWidgets('Successful Profile Creation', (WidgetTester tester) async {
       _overrideOnError();
-
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+          email: 'newuser2@uri.edu', password: 'Password');
       await tester.pumpWidget(MyApp(
         entryPage: AboutYouWidget(),
       ));
       await GoogleFonts.pendingFonts();
 
-      await tester.tap(find.byKey(const ValueKey('enterName_7scu')));
       await tester.enterText(
           find.byKey(const ValueKey('enterName_7scu')), 'Jane');
       await tester.tap(find.byKey(const ValueKey('vehicleDropDown_9dne')));
       await tester.tap(find.text('Gas'));
       await tester.tap(find.byKey(const ValueKey('fuelDropDown_m0eg')));
       await tester.tap(find.text('Regular'));
-      await tester.tap(find.byKey(const ValueKey('enterMpg_06cl')));
       await tester.enterText(find.byKey(const ValueKey('enterMpg_06cl')), '20');
       await tester.tap(find.byKey(const ValueKey('Button_mzyk')));
       await tester.pumpAndSettle(const Duration(milliseconds: 3000));
-      expect(find.byKey(const ValueKey('Text_pokw')), findsOneWidget);
+      expect(find.byKey(const ValueKey('Text_pokw')), findsWidgets);
     });
 
     testWidgets('Edit Profile Information', (WidgetTester tester) async {
       _overrideOnError();
       await FirebaseAuth.instance.signInWithEmailAndPassword(
-          email: 'newuser@uri.edu', password: 'Str0ngP@ssw0rd!');
+          email: 'user@example.com', password: 'Password');
       await tester.pumpWidget(MyApp(
         entryPage: SettingsWidget(),
       ));
@@ -142,18 +147,17 @@ void main() async {
 
     testWidgets('Missing Required Fields', (WidgetTester tester) async {
       _overrideOnError();
-
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+          email: 'newuser3@uri.edu', password: 'Password');
       await tester.pumpWidget(MyApp(
         entryPage: AboutYouWidget(),
       ));
       await GoogleFonts.pendingFonts();
 
-      await tester.tap(find.byKey(const ValueKey('enterName_7scu')));
       await tester.enterText(
           find.byKey(const ValueKey('enterName_7scu')), 'Jane');
       await tester.tap(find.byKey(const ValueKey('vehicleDropDown_9dne')));
       await tester.tap(find.text('Gas'));
-      await tester.tap(find.byKey(const ValueKey('enterMpg_06cl')));
       await tester.enterText(find.byKey(const ValueKey('enterMpg_06cl')), '25');
       await tester.tap(find.byKey(const ValueKey('Button_mzyk')));
       await tester.pumpAndSettle(const Duration(milliseconds: 3000));

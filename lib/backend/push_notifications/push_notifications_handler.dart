@@ -114,12 +114,12 @@ class ParameterData {
 
 final parametersBuilderMap =
     <String, Future<ParameterData> Function(Map<String, dynamic>)>{
-  'onRouteSearch': ParameterData.none(),
   'aboutYou': ParameterData.none(),
   'settings': ParameterData.none(),
   'NearbyMapSearch': ParameterData.none(),
   'signUp': ParameterData.none(),
   'login': ParameterData.none(),
+  'onRouteSearch': ParameterData.none(),
   'NearbyListSearch': ParameterData.none(),
   'AIChat': ParameterData.none(),
 };

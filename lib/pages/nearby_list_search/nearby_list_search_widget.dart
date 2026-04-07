@@ -307,7 +307,10 @@ class _NearbyListSearchWidgetState extends State<NearbyListSearchWidget> {
                                                   ),
                                                 ),
                                                 Text(
-                                                  '\$',
+                                                  getJsonField(
+                                                    stationItemItem,
+                                                    r'''$.price''',
+                                                  ).toString(),
                                                   style: FlutterFlowTheme.of(
                                                           context)
                                                       .labelMedium
@@ -583,6 +586,10 @@ class _NearbyListSearchWidgetState extends State<NearbyListSearchWidget> {
 
                               if ((_model.apiResultLatLng?.succeeded ?? true) ==
                                   true) {
+                                logFirebaseEvent('Button_backend_call');
+                                _model.pricingApiResult =
+                                    await GasStationListCall.call();
+
                                 logFirebaseEvent('Button_update_page_state');
                                 _model.addToFinalStationsList(
                                     functions.buildStationJson(
@@ -618,7 +625,9 @@ class _NearbyListSearchWidgetState extends State<NearbyListSearchWidget> {
                                                           ?.jsonBody ??
                                                       ''),
                                                   r'''$.results[0].geometry.location.lng''',
-                                                )))));
+                                                ))),
+                                        (_model.pricingApiResult?.jsonBody ??
+                                            '')));
                                 logFirebaseEvent('Button_wait__delay');
                                 await Future.delayed(
                                   Duration(

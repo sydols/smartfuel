@@ -46,6 +46,8 @@ class NearbyListSearchModel extends FlutterFlowModel<NearbyListSearchWidget> {
   ApiCallResponse? apiResultNearby;
   // Stores action output result for [Backend Call - API (Google Geocoding)] action in Button widget.
   ApiCallResponse? apiResultLatLng;
+  // Stores action output result for [Backend Call - API (Gas Station List)] action in Button widget.
+  ApiCallResponse? pricingApiResult;
 
   @override
   void initState(BuildContext context) {}

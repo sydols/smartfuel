@@ -122,6 +122,41 @@ class GasStationListCall {
   }
 }
 
+class AIChatCall {
+  static Future<ApiCallResponse> call({
+    String? prompt = '',
+  }) async {
+    final ffApiRequestBody = '''
+{
+  "contents": [
+    {
+      "parts": [
+        {
+          "text": "${escapeStringForJson(prompt)}"
+        }
+      ]
+    }
+  ]
+}''';
+    return ApiManager.instance.makeApiCall(
+      callName: 'AI Chat',
+      apiUrl:
+          'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=AIzaSyBHI-QN5gwiPy4Ua2ei6BwGW4KwJGqSwdA',
+      callType: ApiCallType.POST,
+      headers: {},
+      params: {},
+      body: ffApiRequestBody,
+      bodyType: BodyType.JSON,
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      isStreamingApi: false,
+      alwaysAllowBody: false,
+    );
+  }
+}
+
 class GoogleMapsSearchNearbyCall {
   static Future<ApiCallResponse> call({
     double? lat = 37.7937,
@@ -135,6 +170,7 @@ class GoogleMapsSearchNearbyCall {
 {
   "includedTypes": ${types},
   "maxResultCount": ${resultCount},
+  "rankPreference": "DISTANCE",
   "locationRestriction": {
     "circle": {
       "center": {
@@ -189,41 +225,6 @@ class GoogleMapsSearchNearbyCall {
         r'''$.places''',
         true,
       ) as List?;
-}
-
-class AIChatCall {
-  static Future<ApiCallResponse> call({
-    String? prompt = '',
-  }) async {
-    final ffApiRequestBody = '''
-{
-  "contents": [
-    {
-      "parts": [
-        {
-          "text": "${escapeStringForJson(prompt)}"
-        }
-      ]
-    }
-  ]
-}''';
-    return ApiManager.instance.makeApiCall(
-      callName: 'AI Chat',
-      apiUrl:
-          'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=AIzaSyBHI-QN5gwiPy4Ua2ei6BwGW4KwJGqSwdA',
-      callType: ApiCallType.POST,
-      headers: {},
-      params: {},
-      body: ffApiRequestBody,
-      bodyType: BodyType.JSON,
-      returnBody: true,
-      encodeBodyUtf8: false,
-      decodeUtf8: false,
-      cache: false,
-      isStreamingApi: false,
-      alwaysAllowBody: false,
-    );
-  }
 }
 
 class ApiPagingParams {
