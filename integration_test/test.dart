@@ -50,6 +50,7 @@ void main() async {
       await tester.tap(find.byKey(const ValueKey('reEnterPass_fjr1')));
       await tester.enterText(
           find.byKey(const ValueKey('reEnterPass_fjr1')), 'Str0ngP@ssw0rd!');
+      FocusManager.instance.primaryFocus?.unfocus();
       await tester.pumpAndSettle(const Duration(milliseconds: 3000));
       await tester.tap(find.byKey(const ValueKey('Button_6rc8')));
       await tester.pumpAndSettle(const Duration(milliseconds: 3000));
@@ -83,6 +84,7 @@ void main() async {
       await tester.tap(find.byKey(const ValueKey('reEnterPass_fjr1')));
       await tester.enterText(
           find.byKey(const ValueKey('reEnterPass_fjr1')), 'Str0ngP@ssw0rd!');
+      FocusManager.instance.primaryFocus?.unfocus();
       await tester.pumpAndSettle(const Duration(milliseconds: 3000));
       await tester.tap(find.byKey(const ValueKey('Button_6rc8')));
       await tester.pumpAndSettle(const Duration(milliseconds: 3000));
@@ -116,6 +118,7 @@ void main() async {
       await tester.tap(find.byKey(const ValueKey('reEnterPass_fjr1')));
       await tester.enterText(
           find.byKey(const ValueKey('reEnterPass_fjr1')), 'Str0ngP@ssw0rd!');
+      FocusManager.instance.primaryFocus?.unfocus();
       await tester.pumpAndSettle(const Duration(milliseconds: 3000));
       await tester.tap(find.byKey(const ValueKey('Button_6rc8')));
       await tester.pumpAndSettle(const Duration(milliseconds: 3000));
