@@ -32,10 +32,12 @@ void main() async {
       _overrideOnError();
 
       await tester.pumpWidget(MyApp(
-        entryPage: SignUpWidget(),
+        entryPage: LoginWidget(),
       ));
       await GoogleFonts.pendingFonts();
 
+      await tester.pumpAndSettle(const Duration(milliseconds: 3000));
+      await tester.tap(find.byKey(const ValueKey('Button_cs97')));
       await tester.pumpAndSettle(const Duration(milliseconds: 3000));
       await tester.tap(find.byKey(const ValueKey('enterEmail_xvom')));
       await tester.enterText(
@@ -63,10 +65,12 @@ void main() async {
       _overrideOnError();
 
       await tester.pumpWidget(MyApp(
-        entryPage: SignUpWidget(),
+        entryPage: LoginWidget(),
       ));
       await GoogleFonts.pendingFonts();
 
+      await tester.pumpAndSettle(const Duration(milliseconds: 3000));
+      await tester.tap(find.byKey(const ValueKey('Button_cs97')));
       await tester.pumpAndSettle(const Duration(milliseconds: 3000));
       await tester.tap(find.byKey(const ValueKey('enterEmail_xvom')));
       await tester.enterText(
@@ -94,10 +98,12 @@ void main() async {
       _overrideOnError();
 
       await tester.pumpWidget(MyApp(
-        entryPage: SignUpWidget(),
+        entryPage: LoginWidget(),
       ));
       await GoogleFonts.pendingFonts();
 
+      await tester.pumpAndSettle(const Duration(milliseconds: 3000));
+      await tester.tap(find.byKey(const ValueKey('Button_cs97')));
       await tester.pumpAndSettle(const Duration(milliseconds: 3000));
       await tester.tap(find.byKey(const ValueKey('enterEmail_xvom')));
       await tester.enterText(
