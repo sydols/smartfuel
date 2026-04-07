@@ -142,8 +142,7 @@ void main() async {
 
       await tester.pumpAndSettle(const Duration(milliseconds: 3000));
       await tester.tap(find.byKey(const ValueKey('Button_cs97')));
-      await tester.pumpAndSettle(const Duration(milliseconds: 3000));
-      await tester.tap(find.byKey(const ValueKey('enterEmail_xvom')));
+      await tester.pumpAndSettle(const Duration(milliseconds: 5000));
       await tester.enterText(
           find.byKey(const ValueKey('enterEmail_xvom')), 'newuser2@uri.edu');
       await tester.tap(find.byKey(const ValueKey('enterPass_alr8')));
@@ -227,8 +226,7 @@ void main() async {
 
       await tester.pumpAndSettle(const Duration(milliseconds: 3000));
       await tester.tap(find.byKey(const ValueKey('Button_cs97')));
-      await tester.pumpAndSettle(const Duration(milliseconds: 3000));
-      await tester.tap(find.byKey(const ValueKey('enterEmail_xvom')));
+      await tester.pumpAndSettle(const Duration(milliseconds: 5000));
       await tester.enterText(
           find.byKey(const ValueKey('enterEmail_xvom')), 'newuser3@uri.edu');
       await tester.tap(find.byKey(const ValueKey('enterPass_alr8')));
