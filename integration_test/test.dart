@@ -37,7 +37,8 @@ void main() async {
       await GoogleFonts.pendingFonts();
 
       await tester.pumpAndSettle(const Duration(milliseconds: 3000));
-      await tester.tap(find.byKey(const ValueKey('enterEmail_xvom')));
+      await tester.tap(find.byKey(const ValueKey('Button_cs97')));
+      await tester.pumpAndSettle(const Duration(milliseconds: 3000));
       await tester.enterText(
           find.byKey(const ValueKey('enterEmail_xvom')), 'newuser@uri.edu');
       await tester.tap(find.byKey(const ValueKey('enterPass_alr8')));
