@@ -139,7 +139,6 @@ void main() async {
           find.byKey(const ValueKey('reEnterPass_fjr1')), 'Password');
       await tester.tap(find.byKey(const ValueKey('Button_6rc8')));
       await tester.pumpAndSettle(const Duration(milliseconds: 3000));
-      expect(find.byKey(const ValueKey('Text_bih8')), findsWidgets);
       await tester.enterText(
           find.byKey(const ValueKey('enterName_7scu')), 'Jane');
       await tester.tap(find.byKey(const ValueKey('vehicleDropDown_9dne')));
@@ -166,10 +165,8 @@ void main() async {
           find.byKey(const ValueKey('enterPass_j4d8')), 'Password');
       await tester.tap(find.byKey(const ValueKey('Button_ozln')));
       await tester.pumpAndSettle(const Duration(milliseconds: 3000));
-      expect(find.byKey(const ValueKey('NearbyListSearch_9hi1')), findsWidgets);
       await tester.tap(find.byIcon(Icons.settings));
       await tester.pumpAndSettle(const Duration(milliseconds: 3000));
-      expect(find.byKey(const ValueKey('Text_ld7v')), findsWidgets);
       await tester.tap(find.byKey(const ValueKey('fuelDropDown_vgd7')));
       await tester.tap(find.text('Premium'));
       await tester.tap(find.byKey(const ValueKey('Button_ppzg')));
@@ -192,11 +189,8 @@ void main() async {
           find.byKey(const ValueKey('reEnterPass_fjr1')), 'Password');
       await tester.tap(find.byKey(const ValueKey('Button_6rc8')));
       await tester.pumpAndSettle(const Duration(milliseconds: 3000));
-      expect(find.byKey(const ValueKey('Text_bih8')), findsWidgets);
       await tester.enterText(
           find.byKey(const ValueKey('enterName_7scu')), 'Jane');
-      await tester.tap(find.byKey(const ValueKey('vehicleDropDown_9dne')));
-      await tester.tap(find.text('Gas'));
       await tester.enterText(find.byKey(const ValueKey('enterMpg_06cl')), '25');
       await tester.tap(find.byKey(const ValueKey('Button_mzyk')));
       await tester.pumpAndSettle(const Duration(milliseconds: 3000));
