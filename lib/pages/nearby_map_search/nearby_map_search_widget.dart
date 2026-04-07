@@ -111,7 +111,6 @@ class _NearbyMapSearchWidgetState extends State<NearbyMapSearchWidget> {
                 child: Padding(
                   padding: EdgeInsetsDirectional.fromSTEB(24.0, 24.0, 0.0, 0.0),
                   child: Text(
-                    key: ValueKey('Text_pokw'),
                     'Stations Near You',
                     textAlign: TextAlign.start,
                     style: FlutterFlowTheme.of(context).displayMedium.override(
