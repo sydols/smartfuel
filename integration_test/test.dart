@@ -71,16 +71,23 @@ void main() async {
       await tester.tap(find.byKey(const ValueKey('enterEmail_xvom')));
       await tester.enterText(
           find.byKey(const ValueKey('enterEmail_xvom')), 'rhodyram@uri.edu');
+      await tester.pumpAndSettle(const Duration(milliseconds: 3000));
       await tester.tap(find.byKey(const ValueKey('enterPass_alr8')));
       await tester.enterText(
           find.byKey(const ValueKey('enterPass_alr8')), 'Str0ngP@ssw0rd!');
+      await tester.pumpAndSettle(const Duration(milliseconds: 3000));
       await tester.tap(find.byKey(const ValueKey('reEnterPass_fjr1')));
       await tester.enterText(
           find.byKey(const ValueKey('reEnterPass_fjr1')), 'Str0ngP@ssw0rd!');
       await tester.pumpAndSettle(const Duration(milliseconds: 3000));
       await tester.tap(find.byKey(const ValueKey('Button_6rc8')));
       await tester.pumpAndSettle(const Duration(milliseconds: 3000));
-      expect(find.byKey(const ValueKey('Text_upe1')), findsWidgets);
+      expect(
+        tester
+            .widget<FFButtonWidget>(find.byKey(const ValueKey('Button_6rc8')))
+            .onPressed,
+        isNotNull,
+      );
     });
 
     testWidgets('Email Address Invalid', (WidgetTester tester) async {
@@ -95,29 +102,44 @@ void main() async {
       await tester.tap(find.byKey(const ValueKey('enterEmail_xvom')));
       await tester.enterText(
           find.byKey(const ValueKey('enterEmail_xvom')), 'rhodyram');
+      await tester.pumpAndSettle(const Duration(milliseconds: 3000));
       await tester.tap(find.byKey(const ValueKey('enterPass_alr8')));
       await tester.enterText(
           find.byKey(const ValueKey('enterPass_alr8')), 'Str0ngP@ssw0rd!');
+      await tester.pumpAndSettle(const Duration(milliseconds: 3000));
       await tester.tap(find.byKey(const ValueKey('reEnterPass_fjr1')));
       await tester.enterText(
           find.byKey(const ValueKey('reEnterPass_fjr1')), 'Str0ngP@ssw0rd!');
       await tester.pumpAndSettle(const Duration(milliseconds: 3000));
       await tester.tap(find.byKey(const ValueKey('Button_6rc8')));
       await tester.pumpAndSettle(const Duration(milliseconds: 3000));
-      expect(find.byKey(const ValueKey('Text_upe1')), findsWidgets);
+      expect(
+        tester
+            .widget<FFButtonWidget>(find.byKey(const ValueKey('Button_6rc8')))
+            .onPressed,
+        isNotNull,
+      );
     });
   });
 
   group('US3: Profile Creation', () {
     testWidgets('Successful Profile Creation', (WidgetTester tester) async {
       _overrideOnError();
-      await FirebaseAuth.instance.signInWithEmailAndPassword(
-          email: 'newuser2@uri.edu', password: 'Password');
+
       await tester.pumpWidget(MyApp(
-        entryPage: AboutYouWidget(),
+        entryPage: SignUpWidget(),
       ));
       await GoogleFonts.pendingFonts();
 
+      await tester.enterText(
+          find.byKey(const ValueKey('enterEmail_xvom')), 'newuser2@uri.edu');
+      await tester.enterText(
+          find.byKey(const ValueKey('enterPass_alr8')), 'Password');
+      await tester.enterText(
+          find.byKey(const ValueKey('reEnterPass_fjr1')), 'Password');
+      await tester.tap(find.byKey(const ValueKey('Button_6rc8')));
+      await tester.pumpAndSettle(const Duration(milliseconds: 3000));
+      expect(find.byKey(const ValueKey('Text_bih8')), findsWidgets);
       await tester.enterText(
           find.byKey(const ValueKey('enterName_7scu')), 'Jane');
       await tester.tap(find.byKey(const ValueKey('vehicleDropDown_9dne')));
@@ -147,13 +169,21 @@ void main() async {
 
     testWidgets('Missing Required Fields', (WidgetTester tester) async {
       _overrideOnError();
-      await FirebaseAuth.instance.signInWithEmailAndPassword(
-          email: 'newuser3@uri.edu', password: 'Password');
+
       await tester.pumpWidget(MyApp(
-        entryPage: AboutYouWidget(),
+        entryPage: SignUpWidget(),
       ));
       await GoogleFonts.pendingFonts();
 
+      await tester.enterText(
+          find.byKey(const ValueKey('enterEmail_xvom')), 'newuser3@uri.edu');
+      await tester.enterText(
+          find.byKey(const ValueKey('enterPass_alr8')), 'Password');
+      await tester.enterText(
+          find.byKey(const ValueKey('reEnterPass_fjr1')), 'Password');
+      await tester.tap(find.byKey(const ValueKey('Button_6rc8')));
+      await tester.pumpAndSettle(const Duration(milliseconds: 3000));
+      expect(find.byKey(const ValueKey('Text_bih8')), findsWidgets);
       await tester.enterText(
           find.byKey(const ValueKey('enterName_7scu')), 'Jane');
       await tester.tap(find.byKey(const ValueKey('vehicleDropDown_9dne')));

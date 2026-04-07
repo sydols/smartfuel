@@ -134,6 +134,7 @@ class _AboutYouWidgetState extends State<AboutYouWidget> {
                               padding: EdgeInsetsDirectional.fromSTEB(
                                   24.0, 0.0, 0.0, 0.0),
                               child: Text(
+                                key: ValueKey('Text_bih8'),
                                 'About You',
                                 style: FlutterFlowTheme.of(context)
                                     .displaySmall
