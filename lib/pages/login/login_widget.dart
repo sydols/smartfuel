@@ -177,6 +177,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                             child: Container(
                               width: double.infinity,
                               child: TextFormField(
+                                key: ValueKey('enterEmail_stjz'),
                                 controller: _model.enterEmailTextController,
                                 focusNode: _model.enterEmailFocusNode,
                                 autofocus: false,
@@ -300,6 +301,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                             child: Container(
                               width: double.infinity,
                               child: TextFormField(
+                                key: ValueKey('enterPass_j4d8'),
                                 controller: _model.enterPassTextController,
                                 focusNode: _model.enterPassFocusNode,
                                 autofocus: false,
@@ -447,6 +449,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
                           FFButtonWidget(
+                            key: ValueKey('Button_ozln'),
                             onPressed: () async {
                               logFirebaseEvent('LOGIN_PAGE_LOGIN_BTN_ON_TAP');
                               logFirebaseEvent('Button_auth');

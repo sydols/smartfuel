@@ -154,13 +154,22 @@ void main() async {
 
     testWidgets('Edit Profile Information', (WidgetTester tester) async {
       _overrideOnError();
-      await FirebaseAuth.instance.signInWithEmailAndPassword(
-          email: 'user@example.com', password: 'Password');
+
       await tester.pumpWidget(MyApp(
-        entryPage: SettingsWidget(),
+        entryPage: LoginWidget(),
       ));
       await GoogleFonts.pendingFonts();
 
+      await tester.enterText(
+          find.byKey(const ValueKey('enterEmail_stjz')), 'user@example.com');
+      await tester.enterText(
+          find.byKey(const ValueKey('enterPass_j4d8')), 'Password');
+      await tester.tap(find.byKey(const ValueKey('Button_ozln')));
+      await tester.pumpAndSettle(const Duration(milliseconds: 3000));
+      expect(find.byKey(const ValueKey('NearbyListSearch_9hi1')), findsWidgets);
+      await tester.tap(find.byIcon(Icons.settings));
+      await tester.pumpAndSettle(const Duration(milliseconds: 3000));
+      expect(find.byKey(const ValueKey('Text_ld7v')), findsWidgets);
       await tester.tap(find.byKey(const ValueKey('fuelDropDown_vgd7')));
       await tester.tap(find.text('Premium'));
       await tester.tap(find.byKey(const ValueKey('Button_ppzg')));

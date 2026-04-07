@@ -138,6 +138,7 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                               padding: EdgeInsetsDirectional.fromSTEB(
                                   24.0, 0.0, 0.0, 0.0),
                               child: Text(
+                                key: ValueKey('Text_ld7v'),
                                 'Settings',
                                 style: FlutterFlowTheme.of(context)
                                     .displaySmall
