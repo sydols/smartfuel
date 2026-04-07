@@ -141,10 +141,13 @@ void main() async {
       await GoogleFonts.pendingFonts();
 
       await tester.pumpAndSettle(const Duration(milliseconds: 3000));
+      await tester.tap(find.byKey(const ValueKey('enterEmail_xvom')));
       await tester.enterText(
           find.byKey(const ValueKey('enterEmail_xvom')), 'newuser2@uri.edu');
+      await tester.tap(find.byKey(const ValueKey('enterPass_alr8')));
       await tester.enterText(
           find.byKey(const ValueKey('enterPass_alr8')), 'Password');
+      await tester.tap(find.byKey(const ValueKey('reEnterPass_fjr1')));
       await tester.enterText(
           find.byKey(const ValueKey('reEnterPass_fjr1')), 'Password');
       await tester.tap(find.byKey(const ValueKey('Button_6rc8')));
@@ -221,10 +224,13 @@ void main() async {
       await GoogleFonts.pendingFonts();
 
       await tester.pumpAndSettle(const Duration(milliseconds: 3000));
+      await tester.tap(find.byKey(const ValueKey('enterEmail_xvom')));
       await tester.enterText(
           find.byKey(const ValueKey('enterEmail_xvom')), 'newuser3@uri.edu');
+      await tester.tap(find.byKey(const ValueKey('enterPass_alr8')));
       await tester.enterText(
           find.byKey(const ValueKey('enterPass_alr8')), 'Password');
+      await tester.tap(find.byKey(const ValueKey('reEnterPass_fjr1')));
       await tester.enterText(
           find.byKey(const ValueKey('reEnterPass_fjr1')), 'Password');
       await tester.tap(find.byKey(const ValueKey('Button_6rc8')));
