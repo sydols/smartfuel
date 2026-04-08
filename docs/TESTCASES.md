@@ -2,7 +2,7 @@
 
 <link to template slide> US2: User Login
 
-<link to template slide> US3: Backend Management
+[Link to Template Slide](https://docs.google.com/presentation/d/1GmtPgPhgXqWGiEshLblFdPeJXGiTAzkETvx3PDYXtkc/edit?usp=sharing) US3: Profile Creation
 
 <link to template slide> US4: Find Gas Stations
 
