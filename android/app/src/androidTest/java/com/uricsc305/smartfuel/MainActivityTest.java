@@ -1,4 +1,4 @@
-package com.mycompany.smartfuel;
+package com.uricsc305.smartfuel;
 
 import androidx.test.rule.ActivityTestRule;
 import dev.flutter.plugins.integration_test.FlutterTestRunner;
