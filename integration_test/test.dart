@@ -262,6 +262,25 @@ void main() async {
       );
     });
   });
+
+  group('US5: Price Check', () {
+    testWidgets('View Current Gas Prices', (WidgetTester tester) async {
+      _overrideOnError();
+
+      await tester.pumpWidget(MyApp(
+        entryPage: NearbyListSearchWidget(),
+      ));
+      await GoogleFonts.pendingFonts();
+
+      await tester.tap(find.text('Where are you starting?'));
+      await tester.enterText(
+          find.text('Where are you starting?'), 'Cranston Rhode Island ');
+      await tester.tap(find.text('Cranston, RI'));
+      await tester.tap(find.text('Find Nearby Stations'));
+      expect(find.text('Stations Near You'), findsOneWidget);
+      expect(find.byType(ListView), findsWidgets);
+    });
+  });
 }
 
 // There are certain types of errors that can happen during tests but
