@@ -281,6 +281,23 @@ void main() async {
       expect(find.byType(ListView), findsWidgets);
     });
   });
+
+  group('US2: User Login', () {
+    testWidgets('Successful Login', (WidgetTester tester) async {
+      _overrideOnError();
+
+      await tester.pumpWidget(MyApp(
+        entryPage: LoginWidget(),
+      ));
+      await GoogleFonts.pendingFonts();
+
+      await tester.enterText(find.text('Email...'), 'newuser2@uri.edu');
+      await tester.enterText(find.text('Password..'), 'Password');
+      await tester.tap(find.text('Login'));
+      await tester.pumpAndSettle(const Duration(milliseconds: 3000));
+      expect(find.text('About You'), findsOneWidget);
+    });
+  });
 }
 
 // There are certain types of errors that can happen during tests but
