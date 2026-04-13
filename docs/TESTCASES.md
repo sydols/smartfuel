@@ -4,7 +4,7 @@
 
 [Link to Template Slide](https://docs.google.com/presentation/d/1GmtPgPhgXqWGiEshLblFdPeJXGiTAzkETvx3PDYXtkc/edit?usp=sharing) US3: Profile Creation
 
-<link to template slide> US4: Find Gas Stations
+[Link to Template Slide](https://docs.google.com/presentation/d/1kY1mwwa1kCYB92V-odHdL42BArQ688UUJF5Au5aZz1E/edit?slide=id.p#slide=id.p)  US4: Find Gas Stations
 
 [Link to Template Slide](https://docs.google.com/presentation/d/1xAOJHW-T7CiQm5vB-_cVXmBw5LjdgpXKjrwzBnN3WZE/edit?usp=sharing) US5: Gas Price Tracking
 
